@@ -47,6 +47,7 @@ public class System {
    * getSubject finds the object that the id references and returns it so commands can be executed
    * 
    * different from the other getSubject methods defined in the other objects this method also retrieves the User as defined by the currentUser attribute stored in the client this too is passed with every command
+   * Another difference is that this getSubject is the only getSubject that admin concrete commands interface with
    * @param id the id of the object being searched for
    * @return User/Notification/Review/Rating/Submission or NULL if unsuccessful (would indicate an error)
    */
