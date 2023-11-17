@@ -1,0 +1,48 @@
+package Model;
+
+public class Review {
+  private String reviewID;
+  private User pcm; // Assuming pcm is a type of User
+  private String body;
+  private int score;
+  private boolean needsRevision;
+
+  public Review() {
+    // Implementation
+  }
+
+  public Review(String reviewID, User pcm, String body, int score, boolean needsRevision) {
+    this.reviewID = reviewID;
+    this.pcm = pcm;
+    this.body = body;
+    this.score = score;
+    this.needsRevision = needsRevision;
+  }
+
+  public void reviseReview() {
+    // Implementation
+  }
+
+  public Object getMetaData() {
+    // Implementation
+    return null;
+  }
+
+  public void setDeadline() {
+    // Implementation
+  }
+
+  public void printReview() {
+    // Implementation
+  }
+
+  public String toJson() {
+    // Implementation
+    return null;
+  }
+
+  public static Review fromJson(String json) {
+    // Implementation
+    return null;
+  }
+}
