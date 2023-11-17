@@ -1,8 +1,10 @@
 package Model;
 
+import java.util.UUID;
+
 public class Rating {
-  private String ratingID;
-  private User pcc; // Assuming pcc is a type of User
+  private UUID ratingID;
+  private UUID pccID; // Assuming pcc is a type of User
   private String body;
   private int score;
 
@@ -10,11 +12,15 @@ public class Rating {
     // Implementation
   }
 
-  public Rating(String ratingID, User pcc, String body, int score) {
-    this.ratingID = ratingID;
-    this.pcc = pcc;
+  public Rating(UUID pcc, String body, int score) {
+    this.ratingID = UUID.randomUUID();
+    this.pccID = pcc;
     this.body = body;
     this.score = score;
+  }
+
+  public UUID getRatingID() {
+    return ratingID;
   }
 
   public void setDeadline() {

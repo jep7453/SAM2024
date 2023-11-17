@@ -1,8 +1,10 @@
 package Model;
 
+import java.util.UUID;
+
 public class Review {
-  private String reviewID;
-  private User pcm; // Assuming pcm is a type of User
+  private UUID reviewID;
+  private UUID pcmID; // Assuming pcm is a type of User
   private String body;
   private int score;
   private boolean needsRevision;
@@ -11,12 +13,16 @@ public class Review {
     // Implementation
   }
 
-  public Review(String reviewID, User pcm, String body, int score, boolean needsRevision) {
-    this.reviewID = reviewID;
-    this.pcm = pcm;
+  public Review( UUID pcm, String body, int score) {
+    this.reviewID = UUID.randomUUID();
+    this.pcmID = pcm;
     this.body = body;
     this.score = score;
-    this.needsRevision = needsRevision;
+    this.needsRevision = false;
+  }
+
+  public UUID getReviewID() {
+    return reviewID;
   }
 
   public void reviseReview() {
