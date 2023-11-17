@@ -158,7 +158,8 @@ public class User {
    * @param submissionID The ID of the submission to be reviewed by this user.
    */
   public void addAssignedReview(UUID submissionID) {
-    assignedReviews.put(submissionID, null);
+    Submission submission = (Submission) getSubject(submissionID);
+    assignedReviews.put(submission, null);
   }
 
   /**
