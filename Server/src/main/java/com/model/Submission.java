@@ -1,4 +1,4 @@
-package Model;
+package com.model;
 
 import java.nio.file.Path;
 import java.util.List;

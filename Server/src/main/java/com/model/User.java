@@ -1,4 +1,4 @@
-package Model;
+package com.model;
 
 
 import java.util.EnumSet;
@@ -20,7 +20,7 @@ public class User {
   /* The reviews that the PCM is assigned these are removed once a report is generated and sent to the SUBMITTER */
   private Map<Submission, Review> assignedReviews;
   /* The  rateings that the PCC is assigned these are removed once a report is generated and sent to the SUBMITTER*/
-  private Map<Submission, Rating> assignedRating;
+  private Map<Submission, Rating> assignedRatings;
 
   public User() {
     // Implementation
@@ -28,7 +28,7 @@ public class User {
 
   public User(UUID userID, String username, String password, String name, EnumSet<UserRole> possibleRoles,
       UserRole currentRole, List<Notification> notifications, List<Submission> submissions,
-      Map<Submission, Review> assignedReviews, Map<Submission, Rating> assignedRating) {
+      Map<Submission, Review> assignedReviews, Map<Submission, Rating> assignedRatings) {
     this.userID = userID;
     this.username = username;
     this.password = password;
@@ -38,7 +38,7 @@ public class User {
     this.notifications = notifications;
     this.submissions = submissions;
     this.assignedReviews = assignedReviews;
-    this.assignedRating = assignedRating;
+    this.assignedRatings = assignedRatings;
   }
 
   public UUID login(String username, String password, UserRole userRole) {
@@ -76,7 +76,7 @@ public class User {
     if(this.currentRole == UserRole.PCM) {
       toSearch = new ArrayList<Submission>(assignedReviews.keySet());
     } else if (this.currentRole == UserRole.PCC) {
-      toSearch = new ArrayList<Submission>(assignedRating.keySet());
+      toSearch = new ArrayList<Submission>(assignedRatings.keySet());
     }
     for (Submission submission : toSearch) {
       subject = submission.getSubject(id);

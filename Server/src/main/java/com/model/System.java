@@ -1,4 +1,6 @@
-package Model;
+package com.model;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.List;
 import java.util.UUID;
@@ -7,6 +9,7 @@ import java.util.UUID;
  */
 public class System {
   private List<User> users;
+  private String jsonFilePath = "../../resources/SAM2024.json";
   /**
    * System
    * 
@@ -14,6 +17,7 @@ public class System {
    */
   public System() {
     // Implementation
+    
   }
   /**
    * 
@@ -75,8 +79,9 @@ public class System {
    * @param json
    * @return
    */
-  public static System fromJson(String json) {
+  public void fromJson(String json) {
     // Implementation
-    return null;
+    // ObjectMapper objectMapper = new ObjectMapper();
+
   }
 }

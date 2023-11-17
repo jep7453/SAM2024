@@ -1,0 +1,8 @@
+com\model\Submission.class
+com\model\Review.class
+com\model\UserRole.class
+com\model\User.class
+com\model\Rating.class
+main\java\com\Command\Command.class
+com\model\Notification.class
+com\model\System.class
