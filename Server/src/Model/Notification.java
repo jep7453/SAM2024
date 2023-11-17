@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.Date;
+import java.util.UUID;
 
 public class Notification {
   private String alert;
@@ -35,4 +36,9 @@ public Notification(String alert, Date deadline) {
     // Implementation
     return null;
   }
+
+
+public Object getSubject(UUID id) {
+    return null;
+}
 }

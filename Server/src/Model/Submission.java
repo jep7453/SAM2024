@@ -2,6 +2,7 @@ package Model;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.UUID;
 
 public class Submission {
   private String submissionID;
@@ -67,4 +68,8 @@ public class Submission {
     // Implementation
     return null;
   }
+
+public Object getSubject(UUID id) {
+    return null;
+}
 }
