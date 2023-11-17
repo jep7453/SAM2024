@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class Submission {
-  private String submissionID;
+  private UUID submissionID;
   private String title;
   private List<String> authors;
   private int submissionVersion;
@@ -20,7 +20,7 @@ public class Submission {
     // Implementation
   }
 
-  public Submission(String submissionID, String title, List<String> authors, int submissionVersion,
+  public Submission(UUID submissionID, String title, List<String> authors, int submissionVersion,
       List<Review> reviews, Rating rating, boolean rateStatus, Path filePath, Submission previousSubmission) {
     this.submissionID = submissionID;
     this.title = title;
@@ -68,8 +68,37 @@ public class Submission {
     // Implementation
     return null;
   }
-
+ /**
+   * getSubject: 
+   * The client has the attribute subject this is the id for the object that further commands will be executed on this id is passed along with every command
+   * getSubject finds the object that the id references and returns it so commands can be executed
+   *
+   * @param id the id of the object being searched for
+   * @return this/Review/Rating or NULL if unsuccessful (would indicate an error)
+   */
 public Object getSubject(UUID id) {
+    /* check self */
+    if (this.submissionID == id) {
+      return this;
+    }
+    Object subject;
+    /* check reviews */
+    for (Review review : reviews) {
+      subject = review.getSubject(id);
+      if (subject != null) {
+        return subject;
+      }
+    }
+    /* check rating */
+    subject = rating.getSubject(id);
+    if (subject != null) {
+        return subject;
+    }
+    /* check previous submission (this getSubject is recursive) */
+    subject = previousSubmission.getSubject(id);
+    if (subject != null) {
+        return subject;
+    }
     return null;
-}
+  }
 }

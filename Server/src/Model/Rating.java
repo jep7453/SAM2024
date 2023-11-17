@@ -1,7 +1,9 @@
 package Model;
 
+import java.util.UUID;
+
 public class Rating {
-  private String ratingID;
+  private UUID ratingID;
   private User pcc; // Assuming pcc is a type of User
   private String body;
   private int score;
@@ -10,7 +12,7 @@ public class Rating {
     // Implementation
   }
 
-  public Rating(String ratingID, User pcc, String body, int score) {
+  public Rating(UUID ratingID, User pcc, String body, int score) {
     this.ratingID = ratingID;
     this.pcc = pcc;
     this.body = body;
@@ -32,6 +34,13 @@ public class Rating {
 
   public static Rating fromJson(String json) {
     // Implementation
+    return null;
+  }
+
+  public Object getSubject(UUID id) {
+    if (this.ratingID == id) {
+      return this;
+    }
     return null;
   }
 }

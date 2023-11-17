@@ -4,6 +4,7 @@ package Model;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
+import java.util.ArrayList;
 import java.util.UUID;
 
 public class User {
@@ -58,35 +59,31 @@ public class User {
    * @return this/Notification/Review/Rating/Submission or NULL if unsuccessful (would indicate an error)
    */
   public Object getSubject(UUID id) {
-    // Implementation
+    /* check self */
     if (this.userID == id) {
       return this;
     }
     Object subject;
-    /* All roles have access to notifications */
+    /* check notification */
     for (Notification notification : notifications) {
       subject = notification.getSubject(id);
       if (subject != null) {
         return subject;
       }
     }
-    // if (this.currentRole == UserRole.SUBMITTER) {
-    //   for (Submission submission : submissions) {
-    //     subject = submission.getSubject(id);
-    //     if (subject != null) {
-    //       return subject;
-    //     }
-    //   }
-    // } else if (this.currentRole == UserRole.PCM) {
-    //     for (Review notification : notifications) {
-          
-    //     } assignedReviews.values().getSubject(id);
-    //     if (subject != null) {
-    //       return subject;
-    //     }
-
-    // } else if (this.currentRole == UserRole.PCC) {
-    // }
+    /* check submissions */
+    List<Submission> toSearch = submissions;
+    if(this.currentRole == UserRole.PCM) {
+      toSearch = new ArrayList<Submission>(assignedReviews.keySet());
+    } else if (this.currentRole == UserRole.PCC) {
+      toSearch = new ArrayList<Submission>(assignedRating.keySet());
+    }
+    for (Submission submission : toSearch) {
+      subject = submission.getSubject(id);
+      if (subject != null) {
+        return subject;
+      }
+    }
     return null;
   }
 

@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.UUID;
 
 public class Notification {
+  private UUID notificationID;
   private String alert;
   private Date deadline;
 
@@ -38,7 +39,10 @@ public Notification(String alert, Date deadline) {
   }
 
 
-public Object getSubject(UUID id) {
+  public Object getSubject(UUID id) {
+    if (this.notificationID == id) {
+      return this;
+    }
     return null;
-}
+  }
 }
