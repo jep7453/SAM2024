@@ -13,8 +13,8 @@ public class Rating {
     // Implementation
   }
 
-  public Rating(UUID ratingID, User pcc, String body, int score) {
-    this.ratingID = ratingID;
+  public Rating(User pcc, String body, int score) {
+    this.ratingID = UUID.randomUUID();
     this.pcc = pcc;
     this.body = body;
     this.score = score;

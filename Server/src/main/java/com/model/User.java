@@ -21,7 +21,7 @@ public class User {
   /* The submissions that the PCM has requested to review */
   private List<Submission> requestedSubmissions;
   /* The reviews that the PCM is assigned these are removed once a report is generated and sent to the SUBMITTER */
-  private Map<UUID, UUID> assignedReviews;
+  private Map<Submission, Review> assignedReviews;
   /* The  rateings that the PCC is assigned these are removed once a report is generated and sent to the SUBMITTER*/
   private Map<Submission, Rating> assignedRatings;
 
@@ -82,7 +82,8 @@ public class User {
     Submission previousSubmission = (Submission) getSubject(submissionID);
     int submissionVersion = previousSubmission.getSubmissionVersion() + 1;
     previousSubmission.setMostRecent(false);
-    submission = new Submission(title, authors, filePath, submissionVersion, previousSubmission.getSubmissionID());
+    submission = new Submission(title, authors, filePath, submissionVersion, previousSubmission);
+    submissions.remove(previousSubmission);
     submissions.add(submission);
     return true;
   }
@@ -102,9 +103,9 @@ public class User {
       return false;
     }
     Submission submission = (Submission) getSubject(submissionID);
-    Rating rating = new Rating(userID, body, ratingScore);
+    Rating rating = new Rating(this, body, ratingScore);
     submission.setRating(rating);
-    assignedRating.put(submissionID, rating.getRatingID());
+    assignedRatings.put(submission, rating);
     return true;
   }
 
@@ -123,9 +124,9 @@ public class User {
       return false;
     }
       Submission submission = (Submission) getSubject(submissionID);
-      Review review = new Review(userID, body, reviewScore);
+      Review review = new Review(this, body, reviewScore, false);
       submission.addReview(review);
-      assignedReviews.put(submissionID, review.getReviewID());
+      assignedReviews.put(submission, review);
       return true;
   }
 

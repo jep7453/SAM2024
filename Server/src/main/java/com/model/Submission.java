@@ -13,7 +13,7 @@ public class Submission {
   private Rating rating;
   private boolean rateStatus;
   private Path filePath;
-  private UUID previousSubmission;
+  private Submission previousSubmission;
 
   private boolean mostRecent;
 
@@ -22,7 +22,7 @@ public class Submission {
     // Implementation
   }
 
-  public Submission(String title, List<String> authors, Path filePath, int submissionVersion, UUID previousSubmission) {
+  public Submission(String title, List<String> authors, Path filePath, int submissionVersion, Submission previousSubmission) {
     this.submissionID = UUID.randomUUID();
     this.title = title;
     this.authors = authors;
@@ -44,7 +44,7 @@ public class Submission {
     return submissionID;
   }
 
-  public UUID getPreviousSubmission() {
+  public Submission getPreviousSubmission() {
     return previousSubmission;
   }
 

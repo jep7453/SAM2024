@@ -13,8 +13,8 @@ public class Review {
     // Implementation
   }
 
-  public Review(UUID reviewID, User pcm, String body, int score, boolean needsRevision) {
-    this.reviewID = reviewID;
+  public Review(User pcm, String body, int score, boolean needsRevision) {
+    this.reviewID = UUID.randomUUID();
     this.pcm = pcm;
     this.body = body;
     this.score = score;
