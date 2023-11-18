@@ -1,4 +1,4 @@
-package main.java.com.Command;
+package com.Command;
 
 public class Command {
 }

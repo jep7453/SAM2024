@@ -7,8 +7,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Review {
   private UUID reviewID;
   private UUID pcm; // Assuming pcm is a type of User
+  @JsonProperty("body")
   private String body;
+  @JsonProperty("score")
   private int score;
+  @JsonProperty("needsRevision")
   private boolean needsRevision;
 
   public Review(UUID pcm, String body, int score, boolean needsRevision) {
@@ -18,20 +21,23 @@ public class Review {
     this.score = score;
     this.needsRevision = needsRevision;
   }
-
-  public Review(
-      @JsonProperty("reviewID") UUID reviewID,
-      @JsonProperty("pcm") UUID pcm,
-      @JsonProperty("body") String body,
-      @JsonProperty("score") int score,
-      @JsonProperty("needsRevision") boolean needsRevision) {
-    this.reviewID = reviewID;
-    this.pcm = pcm;
-    this.body = body;
-    this.score = score;
-    this.needsRevision = needsRevision;
+  /**
+   * =================================
+   * Json -> Java
+   */
+  public Review() {
   }
-
+  @JsonProperty("reviewID")
+  public void setReviewID(String reviewID) {
+    this.reviewID = UUID.fromString(reviewID);
+  }
+  @JsonProperty("pcm")
+  public void setPcm(String pcm) {
+    this.pcm = UUID.fromString(pcm);
+  }
+  /**
+   * =================================
+   */
   public void reviseReview() {
     // Implementation
   }
@@ -54,15 +60,19 @@ public class Review {
     return null;
   }
 
-  public static Review fromJson(String json) {
-    // Implementation
-    return null;
-  }
-
   public Object getSubject(UUID id) {
     if (this.reviewID == id) {
       return this;
     }
     return null;
+  }
+  public String toString() {
+    return "Review {" +
+            "reviewID=" + reviewID +
+            ", pcm=" + pcm +
+            ", body='" + body + '\'' +
+            ", score=" + score +
+            ", needsRevision=" + needsRevision +
+            '}';
   }
 }

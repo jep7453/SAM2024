@@ -1,20 +1,28 @@
 package com.model;
 
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Submission {
+public class Submission{
   private UUID submissionID;
+  @JsonProperty("title")
   private String title;
+  @JsonProperty("authors")
   private List<String> authors;
+  @JsonProperty("submissionVersion")
   private int submissionVersion;
+  @JsonProperty("reviews")
   private List<Review> reviews;
+  @JsonProperty("rating")
   private Rating rating;
+  @JsonProperty("rateStatus")
   private boolean rateStatus;
   private Path filePath;
+  @JsonProperty("previousSubmission")
   private Submission previousSubmission;
 
   private boolean mostRecent;
@@ -28,17 +36,25 @@ public class Submission {
     this.previousSubmission = previousSubmission;
     this.mostRecent = true;
   }
-
-  public Submission(
-        @JsonProperty("submissionID") UUID submissionID,
-        @JsonProperty("title") String title,
-        @JsonProperty("authors") List<String> authors,
-        @JsonProperty("filePath") String filePath){
-    this.submissionID = submissionID;
-    this.title = title;
-    this.authors = authors;
-    // Set other fields...
+  /**
+   * =================================
+   * Json -> Java
+   */
+  public Submission() {
   }
+
+  @JsonProperty("submissionID")
+  public void setSubmissionID(String submissionID) {
+    this.submissionID = UUID.fromString(submissionID);
+  }
+
+  @JsonProperty("filePath")
+  public void setFilePath(String filePath) {
+    this.filePath = Paths.get(filePath);
+  }
+  /**
+   * =================================
+   */
 
   public String getTitle() {
     return title;
@@ -158,5 +174,19 @@ public Object getSubject(UUID id) {
         return subject;
     }
     return null;
+  }
+  @Override
+  public String toString() {
+      return "Submission {" +
+              "submissionID=" + submissionID +
+              ", title='" + title + '\'' +
+              ", authors=" + authors +
+              ", submissionVersion=" + submissionVersion +
+              ", reviews=" + reviews +
+              ", rating=" + rating +
+              ", rateStatus=" + rateStatus +
+              ", filePath=" + filePath +
+              ", previousSubmission=" + previousSubmission +
+              '}';
   }
 }

@@ -7,33 +7,40 @@ import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.UUID;
+import java.util.HashMap;
+
+import javax.management.Notification;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class User {
+public class User{
   private UUID userID;
+  @JsonProperty("username")
   private String username;
+  @JsonProperty("password")
   private String password;
+  @JsonProperty("name")
   private String name;
+  @JsonProperty("possibleRoles")
   private EnumSet<UserRole> possibleRoles;
+  @JsonProperty("currentRole")
   private UserRole currentRole;
-  private List<Notification> notifications;
+  @JsonProperty("notifications")
+  private List<Notification_> notifications;
   /* List of unique submissions each submission is the head of a linked list of past submissions (this is how version control is handled) */
+  @JsonProperty("submissions")
   private List<Submission> submissions;
   /* The submissions that the PCM has requested to review */
+  @JsonProperty("requestedSubmissions")
   private List<UUID> requestedSubmissions;
   /* The reviews that the PCM is assigned these are removed once a report is generated and sent to the SUBMITTER */
-  private Map<UUID, Review> assignedReviews;
+  private Map<UUID, UUID> assignedReviews = new HashMap<>();
   /* The  rateings that the PCC is assigned these are removed once a report is generated and sent to the SUBMITTER*/
-  private Map<UUID, Rating> assignedRatings;
-
-  public User() {
-    // Implementation
-  }
+  private Map<UUID, UUID> assignedRatings = new HashMap<>();
 
   public User(UUID userID, String username, String password, String name, EnumSet<UserRole> possibleRoles,
-      UserRole currentRole, List<Notification> notifications, List<Submission> submissions,
-      Map<UUID, Review> assignedReviews, Map<UUID, Rating> assignedRatings) {
+      UserRole currentRole, List<Notification_> notifications, List<Submission> submissions,
+      Map<UUID, UUID> assignedReviews, Map<UUID, UUID> assignedRatings) {
     this.userID = userID;
     this.username = username;
     this.password = password;
@@ -45,40 +52,49 @@ public class User {
     this.assignedReviews = assignedReviews;
     this.assignedRatings = assignedRatings;
   }
+  /**
+   * =================================
+   * Json -> Java
+   */
+  public User() {
+  }
+  @JsonProperty("userID")
+  public void setUserID(String userID) {
+    this.userID = UUID.fromString(userID);
+  }
+  @JsonProperty("assignedReviews")
+  public void setAssignedReviews(List<Map<String, String>> assignedReviews) {
+    for (Map<String, String> reviewMapping : assignedReviews) {
+      // Assuming the keys in the map are "submissionID" and "reviewID"
+      String submissionIDString = reviewMapping.get("submissionID");
+      String reviewIDString = reviewMapping.get("reviewID");
 
-  public User(
+      // Convert the strings to UUID
+      UUID submissionID = UUID.fromString(submissionIDString);
+      UUID reviewID = UUID.fromString(reviewIDString);
 
-        @JsonProperty("userID") UUID userID,
-        @JsonProperty("username") String username,
-        @JsonProperty("password") String password,
-        @JsonProperty("name") String name,
-        @JsonProperty("possibleRoles") List<String> possibleRoles,
-        @JsonProperty("currentRole") String currentRole,
-        @JsonProperty("notifications") List<Notification> notifications,
-        @JsonProperty("submissions") List<Submission> submissions,
-        @JsonProperty("assignedReviews") Map<UUID, Review> assignedReviews,
-        @JsonProperty("assignedRatings") Map<UUID, Rating> assignedRatings) {
-
-      
-
-      this.userID = userID;
-      this.username = username;
-      this.password = password;
-      this.name = name;
-      for (String role : possibleRoles) {
-        this.possibleRoles.add(UserRole.valueOf(role));
-      }
-      this.currentRole = UserRole.valueOf(currentRole);
-      this.notifications = notifications;
-      this.submissions = submissions;
-
-      // this.assignedReviews = assignedReviews;
-      // this.assignedRatings = assignedRatings;
-
-
-      
+      // Add the mapping to the map
+      this.assignedReviews.put(submissionID, reviewID);
     }
-  
+  }
+  @JsonProperty("assignedRatings")
+  public void setAssignedRatings(List<Map<String, String>> assignedRatings) {
+    for (Map<String, String> ratingMapping : assignedRatings) {
+      // Assuming the keys in the map are "submissionID" and "reviewID"
+      String submissionIDString = ratingMapping.get("submissionID");
+      String ratingIDString = ratingMapping.get("ratingID");
+
+      // Convert the strings to UUID
+      UUID submissionID = UUID.fromString(submissionIDString);
+      UUID ratingID = UUID.fromString(ratingIDString);
+
+      // Add the mapping to the map
+      this.assignedRatings.put(submissionID, ratingID);
+    }
+  }
+  /**
+   * =================================
+   */
 
   /**
    * Submits a paper to the system, saving it to the user's list of submissions.
@@ -135,13 +151,13 @@ public class User {
    * @return True if rating is successful, false otherwise.
    */
   public boolean ratePaper(UUID submissionID, int ratingScore, String body) {
-    if (currentRole == UserRole.PCC) {
-      return false;
-    }
-    Submission submission = (Submission) getSubject(submissionID);
-    Rating rating = new Rating(userID, body, ratingScore);
-    submission.setRating(rating);
-    assignedRatings.put(userID, rating);
+    // if (currentRole == UserRole.PCC) {
+    //   return false;
+    // }
+    // Submission submission = (Submission) getSubject(submissionID);
+    // Rating rating = new Rating(userID, body, ratingScore);
+    // submission.setRating(rating);
+    // assignedRatings.put(userID, rating);
     return true;
   }
 
@@ -156,13 +172,13 @@ public class User {
    * @return True if review is successful, false otherwise.
    */
   public boolean reviewPaper(UUID submissionID, int reviewScore, String body) {
-    if (this.currentRole == UserRole.PCM) {
-      return false;
-    }
-      Submission submission = (Submission) getSubject(submissionID);
-      Review review = new Review(userID, body, reviewScore, false);
-      submission.addReview(review);
-      assignedReviews.put(userID, review);
+    // if (this.currentRole == UserRole.PCM) {
+    //   return false;
+    // }
+    //   Submission submission = (Submission) getSubject(submissionID);
+    //   Review review = new Review(userID, body, reviewScore, false);
+    //   submission.addReview(review);
+    //   assignedReviews.put(userID, review);
       return true;
   }
 
@@ -175,15 +191,16 @@ public class User {
    * @return True if assignment is successful, false otherwise.
    */
   public boolean assignPaper(UUID submissionID, UUID userID) {
-    if (this.currentRole != UserRole.PCC) {
-      return false;
-    }
-    Submission submission = (Submission) getSubject(submissionID);
-    User user = (User) getSubject(userID);
-    if (submission == null || user == null) {
-      return false;
-    }
-    user.addAssignedReview(submissionID);
+    // if (this.currentRole != UserRole.PCC) {
+    //   return false;
+    // }
+    // System systemInstance = System.getInstance();
+    // systemInstance.getSubject(submissionID);
+    // User user = (User) getSubject(userID);
+    // if (submission == null || user == null) {
+    //   return false;
+    // }
+    // user.addAssignedReview(submissionID);
     return true;
   }
 
@@ -255,7 +272,7 @@ public class User {
     }
     Object subject;
     /* check notification */
-    for (Notification notification : notifications) {
+    for (Notification_ notification : notifications) {
       subject = notification.getSubject(id);
       if (subject != null) {
         return subject;
@@ -279,5 +296,21 @@ public class User {
   public static User fromJson(String json) {
     // Implementation
     return null;
+  }
+  @Override
+  public String toString() {
+    return "User {" +
+                "userID=" + userID +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", possibleRoles=" + possibleRoles +
+                ", currentRole=" + currentRole +
+                ", notifications=" + notifications +
+                ", submissions=" + submissions +
+                ", requestedSubmissions=" + requestedSubmissions +
+                ", assignedReviews=" + assignedReviews +
+                ", assignedRatings=" + assignedRatings +
+                '}';
   }
 }

@@ -1,27 +1,35 @@
 package com.model;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 /**
  * System 
  */
-public class System{
+public class Root{
   private List<User> users;
-  private String jsonFilePath = "../../resources/SAM2024.json";
+
+  public static void main(String[] args) {
+    Root s = Root.getInstance();
+    System.out.println(s);
+    //TODO Link to server controller
+  }
 
   private static class SystemHelper {
-    private static final System INSTANCE;
+    private static final Root INSTANCE;
     static {
-      System tempInstance = null;
+      Root tempInstance = null;
       try {
-        tempInstance = new System();
+        tempInstance = new Root();
       } catch (Exception e) {
         // TODO: handle exception
       }
@@ -29,20 +37,31 @@ public class System{
     }
   }
   /**
-   * System
+   * Root
    * 
-   * When system is launched all data stored in Json form will be converted into objects
+   * When Root is launched all data stored in Json form will be converted into objects
    * @throws IOException
    * @throws JsonMappingException
    * @throws JsonParseException
    */
-  private System() throws JsonParseException, JsonMappingException, IOException {
+  private Root() throws JsonParseException, JsonMappingException, IOException {
     ObjectMapper objectMapper = new ObjectMapper();
-    this.users = objectMapper.readValue(new File(jsonFilePath), new TypeReference<List<User>>() {});
+    Path path = Paths.get("C:\\Users\\William Dabney\\OneDrive\\RIT\\swen-746\\SAM2024\\server\\src\\main\\java\\com\\resources\\SAM2024.json");
+    String jsonString = Files.readString(path);
+    System.out.println(jsonString);
+    this.users = convertJsonToObject(jsonString, new TypeReference<List<User>>() {});
 
   }
 
-  public static System getInstance() {
+  private static <T> T convertJsonToObject(String json, TypeReference<T> typeReference) throws JsonProcessingException {
+    ObjectMapper objectMapper = new ObjectMapper();
+    return objectMapper.readValue(json, typeReference);
+  }
+  /**
+   * This is used to access this object
+   * @return
+   */
+  public static Root getInstance() {
     return SystemHelper.INSTANCE;
   }
   /**
@@ -100,17 +119,11 @@ public class System{
     // Implementation
     return null;
   }
-  /**
-   * Converts json representation of the system into objects
-   * @param json
-   * @return
-   * @throws IOException
-   * @throws JsonMappingException
-   * @throws JsonParseException
-   */
-  public void fromJson(String json) throws JsonParseException, JsonMappingException, IOException {
-    // Implementation
-    
 
+  @Override
+  public String toString() {
+      return "Root {" +
+              "users=" + users +
+              '}';
   }
 }
