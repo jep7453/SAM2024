@@ -4,6 +4,8 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Submission {
   private UUID submissionID;
   private String title;
@@ -17,11 +19,6 @@ public class Submission {
 
   private boolean mostRecent;
 
-
-  public Submission() {
-    // Implementation
-  }
-
   public Submission(String title, List<String> authors, Path filePath, int submissionVersion, Submission previousSubmission) {
     this.submissionID = UUID.randomUUID();
     this.title = title;
@@ -30,6 +27,17 @@ public class Submission {
     this.submissionVersion = submissionVersion;
     this.previousSubmission = previousSubmission;
     this.mostRecent = true;
+  }
+
+  public Submission(
+        @JsonProperty("submissionID") UUID submissionID,
+        @JsonProperty("title") String title,
+        @JsonProperty("authors") List<String> authors,
+        @JsonProperty("filePath") String filePath){
+    this.submissionID = submissionID;
+    this.title = title;
+    this.authors = authors;
+    // Set other fields...
   }
 
   public String getTitle() {

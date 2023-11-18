@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class User {
   private UUID userID;
   private String username;
@@ -19,11 +21,11 @@ public class User {
   /* List of unique submissions each submission is the head of a linked list of past submissions (this is how version control is handled) */
   private List<Submission> submissions;
   /* The submissions that the PCM has requested to review */
-  private List<Submission> requestedSubmissions;
+  private List<UUID> requestedSubmissions;
   /* The reviews that the PCM is assigned these are removed once a report is generated and sent to the SUBMITTER */
-  private Map<Submission, Review> assignedReviews;
+  private Map<UUID, Review> assignedReviews;
   /* The  rateings that the PCC is assigned these are removed once a report is generated and sent to the SUBMITTER*/
-  private Map<Submission, Rating> assignedRatings;
+  private Map<UUID, Rating> assignedRatings;
 
   public User() {
     // Implementation
@@ -31,7 +33,7 @@ public class User {
 
   public User(UUID userID, String username, String password, String name, EnumSet<UserRole> possibleRoles,
       UserRole currentRole, List<Notification> notifications, List<Submission> submissions,
-      Map<Submission, Review> assignedReviews, Map<Submission, Rating> assignedRatings) {
+      Map<UUID, Review> assignedReviews, Map<UUID, Rating> assignedRatings) {
     this.userID = userID;
     this.username = username;
     this.password = password;
@@ -43,6 +45,40 @@ public class User {
     this.assignedReviews = assignedReviews;
     this.assignedRatings = assignedRatings;
   }
+
+  public User(
+
+        @JsonProperty("userID") UUID userID,
+        @JsonProperty("username") String username,
+        @JsonProperty("password") String password,
+        @JsonProperty("name") String name,
+        @JsonProperty("possibleRoles") List<String> possibleRoles,
+        @JsonProperty("currentRole") String currentRole,
+        @JsonProperty("notifications") List<Notification> notifications,
+        @JsonProperty("submissions") List<Submission> submissions,
+        @JsonProperty("assignedReviews") Map<UUID, Review> assignedReviews,
+        @JsonProperty("assignedRatings") Map<UUID, Rating> assignedRatings) {
+
+      
+
+      this.userID = userID;
+      this.username = username;
+      this.password = password;
+      this.name = name;
+      for (String role : possibleRoles) {
+        this.possibleRoles.add(UserRole.valueOf(role));
+      }
+      this.currentRole = UserRole.valueOf(currentRole);
+      this.notifications = notifications;
+      this.submissions = submissions;
+
+      // this.assignedReviews = assignedReviews;
+      // this.assignedRatings = assignedRatings;
+
+
+      
+    }
+  
 
   /**
    * Submits a paper to the system, saving it to the user's list of submissions.
@@ -99,13 +135,13 @@ public class User {
    * @return True if rating is successful, false otherwise.
    */
   public boolean ratePaper(UUID submissionID, int ratingScore, String body) {
-    if (this.currentRole == UserRole.PCC) {
+    if (currentRole == UserRole.PCC) {
       return false;
     }
     Submission submission = (Submission) getSubject(submissionID);
-    Rating rating = new Rating(this, body, ratingScore);
+    Rating rating = new Rating(userID, body, ratingScore);
     submission.setRating(rating);
-    assignedRatings.put(submission, rating);
+    assignedRatings.put(userID, rating);
     return true;
   }
 
@@ -124,9 +160,9 @@ public class User {
       return false;
     }
       Submission submission = (Submission) getSubject(submissionID);
-      Review review = new Review(this, body, reviewScore, false);
+      Review review = new Review(userID, body, reviewScore, false);
       submission.addReview(review);
-      assignedReviews.put(submission, review);
+      assignedReviews.put(userID, review);
       return true;
   }
 
@@ -159,7 +195,7 @@ public class User {
    */
   public void addAssignedReview(UUID submissionID) {
     Submission submission = (Submission) getSubject(submissionID);
-    assignedReviews.put(submission, null);
+    assignedReviews.put(submission.getSubmissionID(), null);
   }
 
   /**
@@ -176,7 +212,7 @@ public class User {
     if (submission == null) {
       return false;
     }
-    requestedSubmissions.add(submission);
+    requestedSubmissions.add(submission.getSubmissionID());
     return true;
   }
 
@@ -226,13 +262,7 @@ public class User {
       }
     }
     /* check submissions */
-    List<Submission> toSearch = submissions;
-    if(this.currentRole == UserRole.PCM) {
-      toSearch = new ArrayList<Submission>(assignedReviews.keySet());
-    } else if (this.currentRole == UserRole.PCC) {
-      toSearch = new ArrayList<Submission>(assignedRatings.keySet());
-    }
-    for (Submission submission : toSearch) {
+    for (Submission submission : submissions) {
       subject = submission.getSubject(id);
       if (subject != null) {
         return subject;

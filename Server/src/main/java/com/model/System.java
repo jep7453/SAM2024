@@ -1,7 +1,12 @@
 package com.model;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 /**
@@ -14,9 +19,13 @@ public class System {
    * System
    * 
    * When system is launched all data stored in Json form will be converted into objects
+   * @throws IOException
+   * @throws JsonMappingException
+   * @throws JsonParseException
    */
-  public System() {
-    // Implementation
+  public System() throws JsonParseException, JsonMappingException, IOException {
+    ObjectMapper objectMapper = new ObjectMapper();
+    this.users = objectMapper.readValue(new File(jsonFilePath), new TypeReference<List<User>>() {});
     
   }
   /**
@@ -78,10 +87,13 @@ public class System {
    * Converts json representation of the system into objects
    * @param json
    * @return
+   * @throws IOException
+   * @throws JsonMappingException
+   * @throws JsonParseException
    */
-  public void fromJson(String json) {
+  public void fromJson(String json) throws JsonParseException, JsonMappingException, IOException {
     // Implementation
-    // ObjectMapper objectMapper = new ObjectMapper();
+    
 
   }
 }
