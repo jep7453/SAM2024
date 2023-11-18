@@ -99,9 +99,12 @@ public class Submission {
     return null;
   }
 
+  public Rating getRating() {
+    return rating;
+  }
+
   public List<Review> getReviews() {
-    // Implementation
-    return null;
+    return reviews;
   }
 
   public void markCompleted() {
@@ -109,7 +112,7 @@ public class Submission {
   }
 
   public void printPaper() {
-    // Implementation
+
   }
 
   public Object getMetaData() {

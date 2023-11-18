@@ -32,6 +32,15 @@ public class Review {
     this.needsRevision = needsRevision;
   }
 
+  public void setContent(int score, String body) {
+    this.score = score;
+    this.body = body;
+  }
+
+  public UUID getReviewID() {
+    return reviewID;
+  }
+
   public void reviseReview() {
     // Implementation
   }

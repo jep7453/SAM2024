@@ -2,11 +2,9 @@ package com.model;
 
 
 import java.nio.file.Path;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Map;
-import java.util.ArrayList;
-import java.util.UUID;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -23,9 +21,11 @@ public class User {
   /* The submissions that the PCM has requested to review */
   private List<UUID> requestedSubmissions;
   /* The reviews that the PCM is assigned these are removed once a report is generated and sent to the SUBMITTER */
-  private Map<UUID, Review> assignedReviews;
+  private Map<UUID, UUID> assignedReviews;
   /* The  rateings that the PCC is assigned these are removed once a report is generated and sent to the SUBMITTER*/
-  private Map<UUID, Rating> assignedRatings;
+  private Map<UUID, UUID> assignedRatings;
+
+  private Root root;
 
   public User() {
     // Implementation
@@ -33,7 +33,7 @@ public class User {
 
   public User(UUID userID, String username, String password, String name, EnumSet<UserRole> possibleRoles,
       UserRole currentRole, List<Notification> notifications, List<Submission> submissions,
-      Map<UUID, Review> assignedReviews, Map<UUID, Rating> assignedRatings) {
+      Map<UUID, UUID> assignedReviews, Map<UUID, UUID> assignedRatings) {
     this.userID = userID;
     this.username = username;
     this.password = password;
@@ -58,8 +58,6 @@ public class User {
         @JsonProperty("submissions") List<Submission> submissions,
         @JsonProperty("assignedReviews") Map<UUID, Review> assignedReviews,
         @JsonProperty("assignedRatings") Map<UUID, Rating> assignedRatings) {
-
-      
 
       this.userID = userID;
       this.username = username;
@@ -88,13 +86,22 @@ public class User {
    * @param filePath  The file path to the paper.
    * @return True if submission is successful, false otherwise.
    */
-  public boolean submitPaper(String title, List<String> authors, Path filePath) {
+  public boolean submitPaper(String title, List<String> authors, Path filePath) throws ParseException {
     Submission submission;
     if (this.currentRole == UserRole.SUBMITTER) {
       return false;
     }
     submission = new Submission(title, authors,filePath, 1, null);
     submissions.add(submission);
+
+    Date date = new Date();
+    String strDate = new SimpleDateFormat("dd-MM-yyyy").format(date);
+    Notification notification = new Notification(("Notification: Submission " + submission.getSubmissionID()
+            + " has been submitted"),null,strDate);
+
+    root = Root.getInstance();
+    root.getPCC().notify(notification);
+
     return true;
   }
 
@@ -107,7 +114,7 @@ public class User {
    * @param submissionID The ID of the submission to be updated.
    * @return True if update is successful, false otherwise.
    */
-  public boolean updatePaper(String title, List<String> authors, Path filePath, UUID submissionID) {
+  public boolean updatePaper(String title, List<String> authors, Path filePath, UUID submissionID) throws ParseException {
     Submission submission;
     if (this.currentRole != UserRole.SUBMITTER) {
       return false;
@@ -115,12 +122,23 @@ public class User {
     if (getSubject(submissionID) != null) {
       return false;
     }
-    Submission previousSubmission = (Submission) getSubject(submissionID);
+    Root root = Root.getInstance();
+    Submission previousSubmission = (Submission) root.getSubject(submissionID);
     int submissionVersion = previousSubmission.getSubmissionVersion() + 1;
     previousSubmission.setMostRecent(false);
     submission = new Submission(title, authors, filePath, submissionVersion, previousSubmission);
     submissions.remove(previousSubmission);
     submissions.add(submission);
+
+    Date date = new Date();
+    String strDate = new SimpleDateFormat("dd-MM-yyyy").format(date);
+    Notification notification = new Notification(("Notification: Submission " + submission.getSubmissionID()
+            + " has been submitted"),null,strDate);
+
+    root = Root.getInstance();
+    root.getPCC().notify(notification);
+
+
     return true;
   }
 
@@ -135,13 +153,13 @@ public class User {
    * @return True if rating is successful, false otherwise.
    */
   public boolean ratePaper(UUID submissionID, int ratingScore, String body) {
-    if (currentRole == UserRole.PCC) {
+    if (this.currentRole == UserRole.PCC) {
       return false;
     }
-    Submission submission = (Submission) getSubject(submissionID);
-    Rating rating = new Rating(userID, body, ratingScore);
-    submission.setRating(rating);
-    assignedRatings.put(userID, rating);
+    Root root = Root.getInstance();
+    Submission submission = (Submission) root.getSubject(submissionID);
+    Rating rating = submission.getRating();
+    rating.setContent(ratingScore,body);
     return true;
   }
 
@@ -159,11 +177,12 @@ public class User {
     if (this.currentRole == UserRole.PCM) {
       return false;
     }
-      Submission submission = (Submission) getSubject(submissionID);
-      Review review = new Review(userID, body, reviewScore, false);
-      submission.addReview(review);
-      assignedReviews.put(userID, review);
-      return true;
+    Root root = Root.getInstance();
+    Submission submission = (Submission) root.getSubject(submissionID);
+    UUID reviewID = assignedReviews.get(submissionID);
+    Review review = (Review) root.getSubject(reviewID);
+    review.setContent(reviewScore,body);
+    return true;
   }
 
   /**
@@ -171,32 +190,50 @@ public class User {
    * Only the PCC can assign papers
    *
    * @param submissionID The ID of the submission to be assigned.
-   * @param userID       The ID of the user to whom the paper is to be assigned.
    * @return True if assignment is successful, false otherwise.
    */
-  public boolean assignPaper(UUID submissionID, UUID userID) {
-    if (this.currentRole != UserRole.PCC) {
+  public boolean assignPaperToPCM(UUID submissionID) throws ParseException {
+    if (this.currentRole != UserRole.PCM) {
       return false;
     }
-    Submission submission = (Submission) getSubject(submissionID);
-    User user = (User) getSubject(userID);
-    if (submission == null || user == null) {
+    Root root = Root.getInstance();
+    Submission submission = (Submission) root.getSubject(submissionID);
+    if (submission == null) {
       return false;
     }
-    user.addAssignedReview(submissionID);
+    Review review = new Review(userID, null,0, false);
+    submission.addReview(review);
+    this.assignedReviews.put(submissionID, review.getReviewID());
+
+    Date date = new Date();
+    String strDate = new SimpleDateFormat("dd-MM-yyyy").format(date);
+    Notification notification = new Notification(("Notification: Submission " + submission.getSubmissionID()
+            + " has been assigned to you"),null,strDate);
+
     return true;
   }
 
   /**
-   * Adds a review assignment to this user.
-   * Only should happen to PCM users.
-   *
-   * @param submissionID The ID of the submission to be reviewed by this user.
+   * Assigns a paper to a PCC in the system for them to rate it
+   * Only the Admin can assign papers
+   * @param submissionID
+   * @return
    */
-  public void addAssignedReview(UUID submissionID) {
-    Submission submission = (Submission) getSubject(submissionID);
-    assignedReviews.put(submission.getSubmissionID(), null);
+  public boolean assignPaperToPCC(UUID submissionID) {
+    if (this.currentRole != UserRole.PCC) {
+      return false;
+    }
+    Root root = Root.getInstance();
+    Submission submission = (Submission) root.getSubject(submissionID);
+    if (submission == null) {
+      return false;
+    }
+    Rating rating = new Rating(userID, null,0);
+    submission.setRating(rating);
+    this.assignedRatings.put(submissionID, rating.getRatingID());
+    return true;
   }
+
 
   /**
    * Adds a paper to a PCMs list of requested papers to review
@@ -237,8 +274,25 @@ public class User {
     }
   }
 
-  private void checkNotifications() {
+  public List<Notification> checkNotifications() {
+    ArrayList triggeredNotifications = new ArrayList<>();
+    for (Notification notification : notifications) {
+      if (notification.isTriggered()) {
+        triggeredNotifications.add(notification);
+      }
+    }
+    notifications.removeAll(triggeredNotifications);
+    return triggeredNotifications;
   }
+
+  public void notify(Notification notification) {
+    notifications.add(notification);
+  }
+
+  public EnumSet<UserRole> getPossibleRoles() {
+    return possibleRoles;
+  }
+
 
   /**
    * getSubject: 

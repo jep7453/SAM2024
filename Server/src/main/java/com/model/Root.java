@@ -12,16 +12,16 @@ import java.util.UUID;
 /**
  * System 
  */
-public class System{
+public class Root {
   private List<User> users;
   private String jsonFilePath = "../../resources/SAM2024.json";
 
   private static class SystemHelper {
-    private static final System INSTANCE;
+    private static final Root INSTANCE;
     static {
-      System tempInstance = null;
+      Root tempInstance = null;
       try {
-        tempInstance = new System();
+        tempInstance = new Root();
       } catch (Exception e) {
         // TODO: handle exception
       }
@@ -36,13 +36,13 @@ public class System{
    * @throws JsonMappingException
    * @throws JsonParseException
    */
-  private System() throws JsonParseException, JsonMappingException, IOException {
+  private Root() throws JsonParseException, JsonMappingException, IOException {
     ObjectMapper objectMapper = new ObjectMapper();
     this.users = objectMapper.readValue(new File(jsonFilePath), new TypeReference<List<User>>() {});
 
   }
 
-  public static System getInstance() {
+  public static Root getInstance() {
     return SystemHelper.INSTANCE;
   }
   /**
@@ -71,6 +71,16 @@ public class System{
     }
     return null;
   }
+
+  public User getPCC() {
+    for (User user : users) {
+      if (user.getPossibleRoles().contains(UserRole.PCC)) {
+        return user;
+      }
+    }
+    return null;
+  }
+
   /**
    * getSubject: 
    * The client has the attribute subject this is the id for the object that further commands will be executed on this id is passed along with every command
