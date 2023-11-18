@@ -12,9 +12,22 @@ import java.util.UUID;
 /**
  * System 
  */
-public class System {
+public class System{
   private List<User> users;
   private String jsonFilePath = "../../resources/SAM2024.json";
+
+  private static class SystemHelper {
+    private static final System INSTANCE;
+    static {
+      System tempInstance = null;
+      try {
+        tempInstance = new System();
+      } catch (Exception e) {
+        // TODO: handle exception
+      }
+      INSTANCE = tempInstance;
+    }
+  }
   /**
    * System
    * 
@@ -23,10 +36,14 @@ public class System {
    * @throws JsonMappingException
    * @throws JsonParseException
    */
-  public System() throws JsonParseException, JsonMappingException, IOException {
+  private System() throws JsonParseException, JsonMappingException, IOException {
     ObjectMapper objectMapper = new ObjectMapper();
     this.users = objectMapper.readValue(new File(jsonFilePath), new TypeReference<List<User>>() {});
-    
+
+  }
+
+  public static System getInstance() {
+    return SystemHelper.INSTANCE;
   }
   /**
    * 
