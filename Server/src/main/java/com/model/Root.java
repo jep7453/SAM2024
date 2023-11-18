@@ -15,7 +15,7 @@ import java.util.UUID;
 /**
  * System 
  */
-public class Root{
+public class Root {
   private List<User> users;
 
   public static void main(String[] args) {
@@ -46,7 +46,7 @@ public class Root{
    */
   private Root() throws JsonParseException, JsonMappingException, IOException {
     ObjectMapper objectMapper = new ObjectMapper();
-    Path path = Paths.get("C:\\Users\\William Dabney\\OneDrive\\RIT\\swen-746\\SAM2024\\server\\src\\main\\java\\com\\resources\\SAM2024.json");
+    Path path = Paths.get("C:\\Users\\William Dabney\\OneDrive\\RIT\\swen-746\\SAM2024\\server\\src\\main\\resources\\SAM2024.json");
     String jsonString = Files.readString(path);
     System.out.println(jsonString);
     this.users = convertJsonToObject(jsonString, new TypeReference<List<User>>() {});
@@ -90,6 +90,16 @@ public class Root{
     }
     return null;
   }
+
+  public User getPCC() {
+    for (User user : users) {
+      if (user.getPossibleRoles().contains(UserRole.PCC)) {
+        return user;
+      }
+    }
+    return null;
+  }
+
   /**
    * getSubject: 
    * The client has the attribute subject this is the id for the object that further commands will be executed on this id is passed along with every command

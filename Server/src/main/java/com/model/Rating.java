@@ -51,6 +51,15 @@ public class Rating {
     return null;
   }
 
+  public void setContent(int score, String body) {
+    this.score = score;
+    this.body = body;
+  }
+
+  public UUID getRatingID() {
+    return this.ratingID;
+  }
+
   public Object getSubject(UUID id) {
     if (this.ratingID == id) {
       return this;

@@ -3,7 +3,7 @@ package com.model;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+// import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Locale;
 import java.util.UUID;
@@ -16,11 +16,22 @@ public class Notification_ {
   private String alert;
   private Date deadline;
 
+  private Date dateCreated;
 
-  public Notification_(String alert, Date deadline) {
+
+  public Notification_(String alert, String deadline, String dateCreated ) throws ParseException {
     this.notificationID = UUID.randomUUID();
     this.alert = alert;
-    this.deadline = deadline;
+    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
+    if (deadline == null) {
+      this.deadline = null;
+    }
+    else {
+      Date date = formatter.parse(deadline);
+      this.deadline = date;
+    }
+    Date date = formatter.parse(dateCreated);
+    this.deadline = date;
   }
   /**
    * =================================
@@ -42,13 +53,15 @@ public class Notification_ {
    * =================================
    */
 
-  public void makeNotification() {
-    // Implementation
-  }
-
-  public String isTriggered() {
-    // Implementation
-    return null;
+  public boolean isTriggered() {
+    if (this.deadline == null) {
+      return true;
+    }
+    Date date = new Date();
+    if (date.after(this.deadline)) {
+      return true;
+    }
+    return false;
   }
 
   public String toJson() {
