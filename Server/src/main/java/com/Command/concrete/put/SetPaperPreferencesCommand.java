@@ -31,8 +31,8 @@ public class SetPaperPreferencesCommand extends Command{
          * elements = submissionID : UUID
          * requestReview
          */
-        actor.requestReview((UUID) elements[0]);
-        return "User " + actor.getName() + " requested to review paper " + ((Submission) root.getSubject((UUID) elements[0])).getTitle();
+        actor.requestReview(UUID.fromString((String) elements[0]));
+        return "User " + actor.getName() + " requested to review paper " + UUID.fromString((String) elements[0]);
     }
 
     @Override

@@ -31,7 +31,7 @@ public class AssignPaperToPCCCommand extends Command{
             return "Invalid Permissions";
         }
         User subject = getSubject(subjectID);
-        subject.assignPaperToPCC((UUID) elements[0]);
+        subject.assignPaperToPCC(UUID.fromString((String) elements[0]));
         return "Paper" + elements[0] + "assigned to PCC" + subjectID + "for rating";
     }
 
