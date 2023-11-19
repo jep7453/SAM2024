@@ -39,8 +39,7 @@ public class CreateUserCommand extends Command{
 
     @Override
     public Object getSubject(UUID id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getSubject'");
+        return null;
     }
 
     @Override

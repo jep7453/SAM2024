@@ -1,9 +1,12 @@
 package com.command.concrete.post;
 
+import com.UserRole;
 import com.command.Command;
+import com.model.Review;
 import com.model.Submission;
 import com.model.User;
 
+import java.util.EnumSet;
 import java.util.UUID;
 
 /**
@@ -31,14 +34,13 @@ public class SetDeadlineCommand extends Command{
 
     @Override
     public User getSubject(UUID id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getSubject'");
+        return (User) root.getSubject(id);
     }
 
     @Override
-    public boolean checkPermissions() {
-        // Admin
-        throw new UnsupportedOperationException("Unimplemented method 'checkPermissions'");
+    public boolean checkPermissions(User actor) {
+        EnumSet<UserRole> validRoles = EnumSet.of(UserRole.PCC);
+        return validRoles.contains(actor.getCurrentRole());
     }
     
 }

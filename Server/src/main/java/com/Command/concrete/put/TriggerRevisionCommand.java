@@ -33,13 +33,12 @@ public class TriggerRevisionCommand extends Command{
 
     @Override
     public Submission getSubject(UUID id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getSubject'");
+        return (Submission) root.getSubject(id);
     }
 
     @Override
     public boolean checkPermissions(User actor) {
-        EnumSet<UserRole> validRoles = EnumSet.of(UserRole.ADMIN);
+        EnumSet<UserRole> validRoles = EnumSet.of(UserRole.PCC);
         return validRoles.contains(actor.getCurrentRole());
     }
     

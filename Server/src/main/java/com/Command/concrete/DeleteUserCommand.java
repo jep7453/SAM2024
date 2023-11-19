@@ -1,9 +1,11 @@
 package com.command.concrete;
 
+import com.UserRole;
 import com.command.Command;
 import com.model.Submission;
 import com.model.User;
 
+import java.util.EnumSet;
 import java.util.UUID;
 /**
  * DeleteUserCommand 
@@ -32,14 +34,13 @@ public class DeleteUserCommand extends Command {
 
     @Override
     public User getSubject(UUID id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getSubject'");
+        return null;
     }
 
     @Override
-    public boolean checkPermissions() {
-        // Admin
-        throw new UnsupportedOperationException("Unimplemented method 'checkPermissions'");
+    public boolean checkPermissions(User actor) {
+        EnumSet<UserRole> validRoles = EnumSet.of(UserRole.ADMIN);
+        return validRoles.contains(actor.getCurrentRole());
     }
     
 }

@@ -10,8 +10,8 @@ public class LoginCommand extends Command {
 
     @Override
     public String execute(UUID userID, UUID subjectID, Object... elements) {
-        User actor = getActor(userID);
-        User subject = getSubject(subjectID);
+        // User actor = getActor(userID);
+        // User subject = getSubject(subjectID);
         /**
          * elements = userName : UUID, password : UUID, currentRole : String
          * login
@@ -21,14 +21,12 @@ public class LoginCommand extends Command {
 
     @Override
     public User getSubject(UUID id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getSubject'");
+        return null;
     }
 
     @Override
-    public boolean checkPermissions() {
-        // Every one
-        throw new UnsupportedOperationException("Unimplemented method 'checkPermissions'");
+    public boolean checkPermissions(User actor) {
+        return false;
     }
     
     

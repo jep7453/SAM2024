@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import com.UserRole;
 import com.command.Command;
+import com.model.Review;
 import com.model.Submission;
 import com.model.User;
 
@@ -37,8 +38,7 @@ public class AssignPaperToPCCCommand extends Command{
 
     @Override
     public User getSubject(UUID id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getSubject'");
+        return (User) root.getSubject(id);
     }
 
     @Override
