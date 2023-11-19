@@ -6,6 +6,16 @@ import com.command.Command;
 import com.model.Submission;
 import com.model.User;
 
+/**
+ * AssignPaperToPCCCommand
+ *
+ * Admin
+ *      Admin user calls this command to assign a PCC a submission to rate
+ *
+ * Valid Actors : Admin
+ * Subject : PCC
+ * Return : true if it works, false if it errors
+ */
 public class AssignPaperToPCCCommand extends Command{
 
     @Override
@@ -16,6 +26,7 @@ public class AssignPaperToPCCCommand extends Command{
          * elements = submissionID : UUID
          * assignPaperToPCC
          */
+        subject.assignPaperToPCC((UUID) elements[0]);
         return null;
     }
 

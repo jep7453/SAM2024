@@ -5,6 +5,16 @@ import com.model.Submission;
 import com.model.User;
 
 import java.util.UUID;
+/**
+ * CreateNotificationCommand
+ *
+ * User
+ *      PCC user calls this command to assign a PCM a submission to review
+ *
+ * Valid Actors : PCC
+ * Subject : PCM
+ * Return : true if it works, false if it errors
+ */
 
 public class CreateNotificationCommand extends Command{
 
