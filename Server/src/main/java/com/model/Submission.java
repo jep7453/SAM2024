@@ -159,6 +159,18 @@ public class Submission{
     return paper;
   }
 
+  public String viewReport() {
+    String report = "";
+    report += "Submission ID: " + submissionID + "\n";
+    report += "Title: " + title + "\n";
+    report += "Authors: " + authors + "\n";
+    for (Review review : reviews) {
+      report += review.viewReview();
+    }
+    report += rating.viewRating();
+    return report;
+  }
+
 
 
 

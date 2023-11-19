@@ -28,12 +28,11 @@ public class GetSubmissionsByUserCommand extends Command{
     @Override
     public String execute(UUID userID, UUID subjectID, Object... elements) {
         User actor = getActor(userID);
-        if (checkPermissions(actor)) {
-            User subject = getSubject(subjectID);
-        } else {
+        if (!checkPermissions(actor)) {
             return "Actor current role not able to run command";
         }
-        return null;
+        User subject = getSubject(subjectID);
+        return subject.getSubmissions().toString();
     }
 
     @Override
@@ -44,7 +43,7 @@ public class GetSubmissionsByUserCommand extends Command{
     @Override
     public boolean checkPermissions(User actor) {
         EnumSet<UserRole> validRoles = EnumSet.of(UserRole.SUBMITTER, UserRole.ADMIN, UserRole.PCM, UserRole.PCC);
-        return validRoles.contains(actor.getCurrentRole);
+        return validRoles.contains(actor.getCurrentRole());
     }
     
 }

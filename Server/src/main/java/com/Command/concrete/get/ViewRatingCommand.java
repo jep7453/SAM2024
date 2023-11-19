@@ -26,11 +26,10 @@ public class ViewRatingCommand extends Command{
     public String execute(UUID userID, UUID subjectID, Object... elements) {
         User actor = getActor(userID);
         if (checkPermissions(actor)) {
-            Rating subject = getSubject(subjectID);
-        } else {
             return "Actor current role not able to run command";
         }
-        return null;
+        Rating subject = getSubject(subjectID);
+        return subject.viewRating();
     }
 
     @Override
@@ -41,7 +40,7 @@ public class ViewRatingCommand extends Command{
     @Override
     public boolean checkPermissions(User actor) {
         EnumSet<UserRole> validRoles = EnumSet.of(UserRole.PCC);
-        return validRoles.contains(actor.getCurrentRole);
+        return validRoles.contains(actor.getCurrentRole());
     }
     
 }

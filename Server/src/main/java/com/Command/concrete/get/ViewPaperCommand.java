@@ -24,12 +24,11 @@ public class ViewPaperCommand extends Command{
     @Override
     public String execute(UUID userID, UUID subjectID, Object... elements) {
         User actor = getActor(userID);
-        if (checkPermissions(actor)) {
-            Submission subject = getSubject(subjectID);
-        } else {
+        if (!checkPermissions(actor)) {
             return "Actor current role not able to run command";
         }
-        return null;
+        Submission subject = getSubject(subjectID);
+        return subject.viewPaper();
     }
 
     @Override
@@ -40,7 +39,7 @@ public class ViewPaperCommand extends Command{
     @Override
     public boolean checkPermissions(User actor) {
         EnumSet<UserRole> validRoles = EnumSet.of(UserRole.SUBMITTER, UserRole.PCM, UserRole.PCC);
-        return validRoles.contains(actor.getCurrentRole);
+        return validRoles.contains(actor.getCurrentRole());
     }
     
 }

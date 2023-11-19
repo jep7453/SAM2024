@@ -26,12 +26,11 @@ public class GetUsersByRoleCommand extends Command{
     @Override
     public String execute(UUID userID, UUID subjectID, Object... elements) {
         User actor = getActor(userID);
-        if (checkPermissions(actor)) {
-            
-        } else {
+        if (!checkPermissions(actor)) {
             return "Actor current role not able to run command";
         }
-        return null;
+        UserRole searchRole = UserRole.valueOf((String) elements[0]);
+        return root.getUsersByRole(searchRole).toString();
     }
 
     @Override
@@ -42,7 +41,7 @@ public class GetUsersByRoleCommand extends Command{
     @Override
     public boolean checkPermissions(User actor) {
         EnumSet<UserRole> validRoles = EnumSet.of(UserRole.PCM, UserRole.PCC, UserRole.ADMIN);
-        return validRoles.contains(actor.getCurrentRole);
+        return validRoles.contains(actor.getCurrentRole());
     }
     
 }
