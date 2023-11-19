@@ -6,7 +6,16 @@ import com.model.Submission;
 import com.model.User;
 
 import java.util.UUID;
-
+/**
+ * ReviewPaperCommand 
+ * 
+ * PCM
+ *      When the user makes a review the system calls this command for the review to be saved
+ * 
+ * Valid Actors : PCM
+ * Subject : Review
+ * Return : Success/Fail
+ */
 public class ReviewPaperCommand extends Command{
 
     @Override

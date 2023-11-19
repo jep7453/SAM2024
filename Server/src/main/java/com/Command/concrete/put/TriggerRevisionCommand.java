@@ -6,7 +6,16 @@ import com.model.Submission;
 import com.model.User;
 
 import java.util.UUID;
-
+/**
+ * TriggerRevisionCommand 
+ * 
+ * PCC
+ *      When the user sets a group of reviews as needing revision the system calls this command to save the decision
+ * 
+ * Valid Actors : PCC
+ * Subject : Submission
+ * Return : Success/Fail
+ */
 public class TriggerRevisionCommand extends Command{
 
     @Override
