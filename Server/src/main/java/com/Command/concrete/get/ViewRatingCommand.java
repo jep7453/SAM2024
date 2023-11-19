@@ -41,7 +41,7 @@ public class ViewRatingCommand extends Command{
     @Override
     public boolean checkPermissions(User actor) {
         EnumSet<UserRole> validRoles = EnumSet.of(UserRole.PCC);
-        return validRoles.contains(actor.getCurrentRole);
+        return validRoles.contains(actor.getCurrentRole());
     }
     
 }

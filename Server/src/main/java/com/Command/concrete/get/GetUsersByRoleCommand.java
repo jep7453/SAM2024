@@ -42,7 +42,7 @@ public class GetUsersByRoleCommand extends Command{
     @Override
     public boolean checkPermissions(User actor) {
         EnumSet<UserRole> validRoles = EnumSet.of(UserRole.PCM, UserRole.PCC, UserRole.ADMIN);
-        return validRoles.contains(actor.getCurrentRole);
+        return validRoles.contains(actor.getCurrentRole());
     }
     
 }
