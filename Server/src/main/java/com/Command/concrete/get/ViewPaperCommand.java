@@ -6,6 +6,17 @@ import com.model.User;
 
 import java.util.UUID;
 
+/**
+ * VeiwPaperCommand
+ * 
+ * SUBMITTER/PCC/PCM
+ *      When the user has selected a paper to view the system calls this command to get it
+ * 
+ * Valid Actors : PCC/PCM/SUBMITTER
+ * Subject :
+ * Return :
+ */
+
 public class ViewPaperCommand extends Command{
 
     @Override
