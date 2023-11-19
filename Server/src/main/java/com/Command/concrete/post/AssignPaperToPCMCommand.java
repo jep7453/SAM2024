@@ -4,8 +4,19 @@ import com.command.Command;
 import com.model.Submission;
 import com.model.User;
 
+import java.text.ParseException;
 import java.util.UUID;
 
+/**
+ * AssignPaperToPCMCommand
+ *
+ * PCC
+ *      PCC user calls this command to assign a PCM a submission to review
+ *
+ * Valid Actors : PCC
+ * Subject : PCM
+ * Return : true if it works, false if it errors
+ */
 public class AssignPaperToPCMCommand extends Command{
 
     @Override
@@ -16,6 +27,7 @@ public class AssignPaperToPCMCommand extends Command{
          * elements = submissionID : UUID
          * assignPaperToPCM
          */
+        subject.assignPaperToPCM((UUID) elements[0]);
         return null;
     }
 

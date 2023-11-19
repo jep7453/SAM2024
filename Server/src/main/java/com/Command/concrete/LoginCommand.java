@@ -5,7 +5,16 @@ import com.model.Submission;
 import com.model.User;
 
 import java.util.UUID;
-
+/**
+ * LoginCommand
+ *
+ * User
+ *      User attempts to log in to their account
+ *
+ * Valid Actors : Admin/PCC/PCM/Submitter
+ * Subject : ROOT
+ * Return : UUID of user if it works, null if not
+ */
 public class LoginCommand extends Command {
 
     @Override

@@ -6,6 +6,16 @@ import com.model.User;
 
 import java.util.UUID;
 
+/**
+ * AssignPaperToPCCCommand
+ *
+ * Admin
+ *      Admin user calls this command to assign a PCC a submission to rate
+ *
+ * Valid Actors : Admin
+ * Subject : PCC
+ * Return : true if it works, false if it errors
+ */
 public class SetDeadlineCommand extends Command{
 
     @Override

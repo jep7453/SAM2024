@@ -256,7 +256,7 @@ public class User{
    * @param submissionID The ID of the submission to be assigned.
    * @return True if assignment is successful, false otherwise.
    */
-  public boolean assignPaperToPCM(UUID submissionID) throws ParseException {
+  public boolean assignPaperToPCM(UUID submissionID){
     if (this.currentRole != UserRole.PCM) {
       return false;
     }
@@ -271,8 +271,12 @@ public class User{
 
     Date date = new Date();
     String strDate = new SimpleDateFormat("dd-MM-yyyy").format(date);
-    Notification_ notification = new Notification_(("Notification: Submission " + submission.getSubmissionID()
-            + " has been assigned to you"),null,strDate);
+    try {
+      Notification_ notification = new Notification_(("Notification: Submission " + submission.getSubmissionID()
+              + " has been assigned to you"),null,strDate);
+    } catch (ParseException e) {
+      throw new RuntimeException(e);
+    }
 
     return true;
   }
