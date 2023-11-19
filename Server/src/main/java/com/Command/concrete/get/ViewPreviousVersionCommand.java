@@ -1,4 +1,4 @@
-package com.command.concrete;
+package com.command.concrete.get;
 
 import com.command.Command;
 import com.model.Submission;
@@ -6,30 +6,24 @@ import com.model.User;
 
 import java.util.UUID;
 
-public class LoginCommand extends Command {
+public class ViewPreviousVersionCommand extends Command{
 
     @Override
     public String execute(UUID userID, UUID subjectID, Object... elements) {
         User actor = getActor(userID);
-        User subject = getSubject(subjectID);
-        /**
-         * elements = userName : UUID, password : UUID, currentRole : String
-         * login
-         */
+        Submission subject = getSubject(subjectID);
         return null;
     }
 
     @Override
-    public User getSubject(UUID id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getSubject'");
+    public Submission getSubject(UUID id) {
+        return (Submission) root.getSubject(id);
     }
 
     @Override
     public boolean checkPermissions() {
-        // Every one
+        // Submitter
         throw new UnsupportedOperationException("Unimplemented method 'checkPermissions'");
     }
-    
     
 }

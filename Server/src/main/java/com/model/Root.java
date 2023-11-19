@@ -1,6 +1,7 @@
 package com.model;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.UserRole;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;

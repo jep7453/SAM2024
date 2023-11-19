@@ -1,16 +1,21 @@
-package com.command.concrete;
-
-import com.command.Command;
-import com.model.User;
+package com.command.concrete.post;
 
 import java.util.UUID;
 
-public class SetDeadlineCommand extends Command{
+import com.command.Command;
+import com.model.Submission;
+import com.model.User;
+
+public class AssignPaperToPCCCommand extends Command{
 
     @Override
-    public String execute(UUID userID, UUID subjectID) {
-        setActor(userID);
-        getSubject(subjectID);
+    public String execute(UUID userID, UUID subjectID, Object... elements) {
+        User actor = getActor(userID);
+        User subject = getSubject(subjectID);
+        /**
+         * elements = submissionID : UUID
+         * assignPaperToPCC
+         */
         return null;
     }
 
@@ -22,7 +27,7 @@ public class SetDeadlineCommand extends Command{
 
     @Override
     public boolean checkPermissions() {
-        // TODO Auto-generated method stub
+        // Admin
         throw new UnsupportedOperationException("Unimplemented method 'checkPermissions'");
     }
     

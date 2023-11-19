@@ -1,16 +1,17 @@
-package com.command.concrete;
+package com.command.concrete.get;
 
 import com.command.Command;
 import com.model.Submission;
+import com.model.User;
 
 import java.util.UUID;
 
 public class ViewPaperCommand extends Command{
 
     @Override
-    public String execute(UUID userID, UUID subjectID) {
-        setActor(userID);
-        getSubject(subjectID);
+    public String execute(UUID userID, UUID subjectID, Object... elements) {
+        User actor = getActor(userID);
+        Submission subject = getSubject(subjectID);
         return null;
     }
 
@@ -22,7 +23,7 @@ public class ViewPaperCommand extends Command{
 
     @Override
     public boolean checkPermissions() {
-        // TODO Auto-generated method stub
+        // Everyone
         throw new UnsupportedOperationException("Unimplemented method 'checkPermissions'");
     }
     

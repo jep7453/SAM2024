@@ -1,6 +1,7 @@
-package com.command.concrete;
+package com.command.concrete.post;
 
 import com.command.Command;
+import com.model.Submission;
 import com.model.User;
 
 import java.util.UUID;
@@ -8,9 +9,13 @@ import java.util.UUID;
 public class CreateNotificationCommand extends Command{
 
     @Override
-    public String execute(UUID userID, UUID subjectID) {
-        setActor(userID);
-        getSubject(subjectID);
+    public String execute(UUID userID, UUID subjectID, Object... elements) {
+        User actor = getActor(userID);
+        User subject = getSubject(subjectID);
+        /**
+         * elements = submissionID : UUID, alert : String, deadline : String{"dd-MM-yyyy"}
+         * addNotification
+         */
         return null;
     }
 
@@ -22,7 +27,7 @@ public class CreateNotificationCommand extends Command{
 
     @Override
     public boolean checkPermissions() {
-        // TODO Auto-generated method stub
+        // Admin
         throw new UnsupportedOperationException("Unimplemented method 'checkPermissions'");
     }
     

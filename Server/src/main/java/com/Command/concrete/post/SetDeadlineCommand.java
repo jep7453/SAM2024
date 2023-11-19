@@ -1,4 +1,4 @@
-package com.command.concrete;
+package com.command.concrete.post;
 
 import com.command.Command;
 import com.model.Submission;
@@ -6,17 +6,15 @@ import com.model.User;
 
 import java.util.UUID;
 
-public class ManageUsersCommand extends Command {
+public class SetDeadlineCommand extends Command{
 
     @Override
     public String execute(UUID userID, UUID subjectID, Object... elements) {
         User actor = getActor(userID);
         User subject = getSubject(subjectID);
         /**
-         * elements = userName : String, password : "password", possibleRoles :  <String>
-         * addUser
-         * elements = userID
-         * deleteUser
+         * elements = submissionID : UUID, body : string, deadline : String{"dd-MM-yyyy"} 
+         * setDeadling //All deadline does is tell the user that a PCC will start reviewing there submission
          */
         return null;
     }
