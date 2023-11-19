@@ -5,17 +5,16 @@ import java.util.UUID;
 import com.command.Command;
 
 /**
- * ViewReportCommand
+ * GetAssignedReviewsRatingCommand 
  * 
- * SUBMITTER
- *      When the user wishes to see a papers report the system calls this command to get it for them
+ * PCM/PCC
+ *      When the user selects a submission to rate/review the system calls this command to give them the rating/review
  * 
- * Valid Actors : SUBMITTER
- * Subject :
- * Return :
+ * Valid Actors : PCM/PCC
+ * Subject : User
+ * Return : metadata assigned Reviews/Ratings
  */
-
-public class ViewReportCommand extends Command{
+public class GetAssignedReviewsRatingsCommand extends Command{
 
     @Override
     public String execute(UUID userID, UUID subjectID, Object... elements) {

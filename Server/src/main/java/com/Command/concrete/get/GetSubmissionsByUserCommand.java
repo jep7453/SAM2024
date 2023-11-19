@@ -7,6 +7,20 @@ import com.model.User;
 
 import java.util.UUID;
 
+/**
+ * GetSubmissionByUserCommand
+ * 
+ * SUBMITTER
+ *      When the user needs to select from their submissions the system calls this command to get the options
+ * PCC/PCM
+ *      When the user needs to select from the submissions that they are to review/rate the system calls this command to get the options
+ * ADMIN
+ *      When the user needs to select from submissions to put a deadline on the system calls this command to get the options      
+ * 
+ * Valid Actors : SUBMITTER/PCM/PCC/ADMIN
+ * Subject : User
+ * Return : metadata of the submissions tied to user
+ */
 public class GetSubmissionsByUserCommand extends Command{
 
     @Override

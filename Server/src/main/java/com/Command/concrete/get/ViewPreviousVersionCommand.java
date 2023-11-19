@@ -6,6 +6,14 @@ import com.model.User;
 
 import java.util.UUID;
 
+/**
+ * DEPRECATED
+ * 
+ * Valid Actors :
+ * Subject :
+ * Return :
+ */
+
 public class ViewPreviousVersionCommand extends Command{
 
     @Override

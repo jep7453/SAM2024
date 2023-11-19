@@ -5,17 +5,16 @@ import java.util.UUID;
 import com.command.Command;
 
 /**
- * ViewReportCommand
+ * GetAssignedReviewsRatingCommand 
  * 
  * SUBMITTER
- *      When the user wishes to see a papers report the system calls this command to get it for them
+ *      When the user needs to select from previous versions of a submission the system calls this command to get the options
  * 
  * Valid Actors : SUBMITTER
- * Subject :
- * Return :
+ * Subject : Submitter
+ * Return : metadata previous submissions
  */
-
-public class ViewReportCommand extends Command{
+public class GetPreviousSubmissionsCommand extends Command{
 
     @Override
     public String execute(UUID userID, UUID subjectID, Object... elements) {
