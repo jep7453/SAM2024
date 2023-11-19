@@ -11,8 +11,8 @@ import com.command.Command;
  *      When the user wishes to see a papers report the system calls this command to get it for them
  * 
  * Valid Actors : SUBMITTER
- * Subject :
- * Return :
+ * Subject : Submission
+ * Return : String representation of report
  */
 
 public class ViewReportCommand extends Command{

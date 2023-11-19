@@ -7,8 +7,8 @@ import com.command.Command;
 /**
  * GetReviewsOnSubmissionCommand
  * 
- * 
- * When the user 
+ * PCC
+ *      When the user needs to select from the reviews linked the the submission that they are rating the system calls this command to get them
  * 
  * Valid Actors : PCC
  * Subject : Submission
