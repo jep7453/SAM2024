@@ -7,11 +7,12 @@ import com.command.Command;
 /**
  * ViewReviewCommand
  * 
- * 
+ * PCC/PCM
+ *      When the user needs to see a review the system calls this command to show them
  * 
  * Valid Actors : PCC/PCM
- * Subject :
- * Return :
+ * Subject : Review
+ * Return : string representation of Review 
  */
 
 public class ViewReviewCommand extends Command{

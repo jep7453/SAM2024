@@ -13,8 +13,8 @@ import java.util.UUID;
  *      When the user has selected a paper to view the system calls this command to get it
  * 
  * Valid Actors : PCC/PCM/SUBMITTER
- * Subject :
- * Return :
+ * Subject : Submission
+ * Return : TODO string representation of paper untill we get to allowing pdf and word docs
  */
 
 public class ViewPaperCommand extends Command{
