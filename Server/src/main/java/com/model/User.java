@@ -203,6 +203,14 @@ public class User{
     }
   }
 
+  public String getName() {
+    return name;
+  }
+
+  public UserRole getCurrentRole() {
+    return currentRole;
+  }
+
   public UUID getUserID() {
     return userID;
   }

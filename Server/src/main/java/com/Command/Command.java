@@ -19,5 +19,5 @@ public abstract class Command {
 
     public abstract Object getSubject(UUID id);
 
-    public abstract boolean checkPermissions();
+    public abstract boolean checkPermissions(User actor);
 } 

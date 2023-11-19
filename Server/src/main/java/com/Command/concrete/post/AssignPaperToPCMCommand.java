@@ -1,10 +1,12 @@
 package com.command.concrete.post;
 
+import com.UserRole;
 import com.command.Command;
 import com.model.Submission;
 import com.model.User;
 
 import java.text.ParseException;
+import java.util.EnumSet;
 import java.util.UUID;
 
 /**
@@ -19,28 +21,30 @@ import java.util.UUID;
  */
 public class AssignPaperToPCMCommand extends Command{
 
+    /**
+     * elements = submissionID : UUID
+     * assignPaperToPCM
+     */
     @Override
     public String execute(UUID userID, UUID subjectID, Object... elements) {
         User actor = getActor(userID);
+        if (checkPermissions(actor) == false) {
+            return "Invalid Permissions";
+        }
         User subject = getSubject(subjectID);
-        /**
-         * elements = submissionID : UUID
-         * assignPaperToPCM
-         */
         subject.assignPaperToPCM((UUID) elements[0]);
-        return null;
+        return "Paper" + elements[0] + "assigned to PCM" + subjectID + "for review";
     }
 
     @Override
     public User getSubject(UUID id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getSubject'");
+        return (User) root.getSubject(id);
     }
 
     @Override
-    public boolean checkPermissions() {
-        // PCC
-        throw new UnsupportedOperationException("Unimplemented method 'checkPermissions'");
+    public boolean checkPermissions(User actor) {
+        EnumSet<UserRole> validRoles = EnumSet.of(UserRole.PCC);
+        return validRoles.contains(actor.getCurrentRole());
     }
     
 }
