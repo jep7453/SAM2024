@@ -1,22 +1,21 @@
 package com.command;
 
+import com.model.Root;
 import com.model.User;
 import java.util.UUID;
 
 public abstract class Command {
 
+    Root root = Root.getInstance();
     public User actor;
-    public Object subject;
 
-    public abstract String execute();
+    public abstract String execute(UUID userID, UUID subjectID);
 
-    public User getActor(UUID userID) {
-        return actor;
-        
+    public void setActor(UUID userID) {
+        actor = (User) root.getSubject(userID);  
     }
 
-    public Object getSubject(UUID id) {
-        return id;
+    public abstract Object getSubject(UUID id);
 
-    }
+    public abstract boolean checkPermissions();
 } 
