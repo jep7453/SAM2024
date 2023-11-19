@@ -5,15 +5,16 @@ import java.util.UUID;
 import com.command.Command;
 
 /**
- * GetReviewsRatingOnSubmissionCommand
+ * GetReviewsOnSubmissionCommand
+ * 
  * 
  * When the user 
  * 
- * Valid Actors : PCC/PCM
+ * Valid Actors : PCC
  * Subject : Submission
  * Return : metadata of reviews/rating on submission
  */
-public class GetReviewsRatingOnSubmissionCommand extends Command{
+public class GetReviewsOnSubmissionCommand extends Command{
 
     @Override
     public String execute(UUID userID, UUID subjectID, Object... elements) {
