@@ -180,6 +180,21 @@ public class User{
     rating.setContent(ratingScore,body);
     return true;
   }
+  public Map<UUID, UUID> getAssignedSubmissions() {
+    if (this.currentRole == UserRole.PCM) {
+      return assignedReviews;
+    }
+    else if (this.currentRole == UserRole.PCC) {
+      return assignedRatings;
+    }
+    else {
+      return null;
+    }
+  }
+
+  public List<Submission> getSubmissions() {
+    return submissions;
+  }
 
   /**
    * Creates a review based on the parameters
