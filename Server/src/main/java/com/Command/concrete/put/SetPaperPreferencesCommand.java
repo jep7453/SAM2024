@@ -5,7 +5,16 @@ import com.model.Submission;
 import com.model.User;
 
 import java.util.UUID;
-
+/**
+ * SetPaperPreferencesCommand 
+ * 
+ * PCM
+ *      When the user makes a selects a submission as preferred the system calls this command for the preference to be saved
+ * 
+ * Valid Actors : PCM
+ * Subject : User
+ * Return : Success/Fail
+ */
 public class SetPaperPreferencesCommand extends Command{
 
     @Override

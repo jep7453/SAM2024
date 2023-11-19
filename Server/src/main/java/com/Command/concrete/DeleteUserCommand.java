@@ -5,8 +5,17 @@ import com.model.Submission;
 import com.model.User;
 
 import java.util.UUID;
-
-public class ManageUsersCommand extends Command {
+/**
+ * DeleteUserCommand 
+ * 
+ * ADMIN
+ *      When the user deletes a user this command is called so that the object is deleted
+ * 
+ * Valid Actors : ADMIN
+ * Subject : Root
+ * Return : Success/Fail
+ */
+public class DeleteUserCommand extends Command {
 
     @Override
     public String execute(UUID userID, UUID subjectID, Object... elements) {

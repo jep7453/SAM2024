@@ -7,6 +7,17 @@ import com.model.User;
 
 import java.util.UUID;
 
+/**
+ * RatePaperCommand 
+ * 
+ * PCC
+ *      When the user makes a rating the system calls this command for the rating to be saved
+ * 
+ * Valid Actors : PCC
+ * Subject : Rating
+ * Return : Success/Fail
+ */
+
 public class RatePaperCommand extends Command{
 
     @Override
