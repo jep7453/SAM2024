@@ -1,7 +1,9 @@
 package com.command.concrete.post;
 
+import java.util.EnumSet;
 import java.util.UUID;
 
+import com.UserRole;
 import com.command.Command;
 import com.model.Submission;
 import com.model.User;
@@ -18,16 +20,19 @@ import com.model.User;
  */
 public class AssignPaperToPCCCommand extends Command{
 
+    /**
+     * elements = submissionID : UUID
+     * assignPaperToPCC
+     */
     @Override
     public String execute(UUID userID, UUID subjectID, Object... elements) {
         User actor = getActor(userID);
+        if (checkPermissions(actor) == false) {
+            return "Invalid Permissions";
+        }
         User subject = getSubject(subjectID);
-        /**
-         * elements = submissionID : UUID
-         * assignPaperToPCC
-         */
         subject.assignPaperToPCC((UUID) elements[0]);
-        return null;
+        return "Paper" + elements[0] + "assigned to PCC" + subjectID + "for rating";
     }
 
     @Override
@@ -37,9 +42,9 @@ public class AssignPaperToPCCCommand extends Command{
     }
 
     @Override
-    public boolean checkPermissions() {
-        // Admin
-        throw new UnsupportedOperationException("Unimplemented method 'checkPermissions'");
+    public boolean checkPermissions(User actor) {
+        EnumSet<UserRole> validRoles = EnumSet.of(UserRole.ADMIN);
+        return validRoles.contains(actor.getCurrentRole());
     }
     
 }

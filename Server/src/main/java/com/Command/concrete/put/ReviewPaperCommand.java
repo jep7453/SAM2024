@@ -1,10 +1,13 @@
 package com.command.concrete.put;
 
+import com.UserRole;
 import com.command.Command;
+import com.model.Rating;
 import com.model.Review;
 import com.model.Submission;
 import com.model.User;
 
+import java.util.EnumSet;
 import java.util.UUID;
 /**
  * ReviewPaperCommand 
@@ -21,24 +24,27 @@ public class ReviewPaperCommand extends Command{
     @Override
     public String execute(UUID userID, UUID subjectID, Object... elements) {
         User actor = getActor(userID);
+        if (checkPermissions(actor) == false) {
+            return "Invalid permissions";
+        }
         Review subject = getSubject(subjectID);
         /**
          * elements = submissionID : UUID, reviewScore : int, body : String
          * reviewPaper
          */
-        return null;
+        actor.reviewPaper((UUID) elements[0], (int) elements[1], (String) elements[2]);
+        return "User " + actor.getName() + " reviewed paper " + ((Submission) root.getSubject((UUID) elements[0])).getTitle();
     }
 
     @Override
     public Review getSubject(UUID id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getSubject'");
+        return (Review) root.getSubject(id);
     }
 
     @Override
-    public boolean checkPermissions() {
-        // PCM
-        throw new UnsupportedOperationException("Unimplemented method 'checkPermissions'");
+    public boolean checkPermissions(User actor) {
+        EnumSet<UserRole> validRoles = EnumSet.of(UserRole.PCM);
+        return validRoles.contains(actor.getCurrentRole());
     }
     
 }

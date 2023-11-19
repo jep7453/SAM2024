@@ -1,10 +1,12 @@
 package com.command.concrete.put;
 
+import com.UserRole;
 import com.command.Command;
 import com.model.Review;
 import com.model.Submission;
 import com.model.User;
 
+import java.util.EnumSet;
 import java.util.UUID;
 /**
  * TriggerRevisionCommand 
@@ -36,9 +38,9 @@ public class TriggerRevisionCommand extends Command{
     }
 
     @Override
-    public boolean checkPermissions() {
-        // PCC
-        throw new UnsupportedOperationException("Unimplemented method 'checkPermissions'");
+    public boolean checkPermissions(User actor) {
+        EnumSet<UserRole> validRoles = EnumSet.of(UserRole.ADMIN);
+        return validRoles.contains(actor.getCurrentRole());
     }
     
 }
