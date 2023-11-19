@@ -1,0 +1,84 @@
+-------------------------------------------------------------------------------
+Test set: command_tests.CommandTest
+-------------------------------------------------------------------------------
+Tests run: 20, Failures: 1, Errors: 19, Skipped: 0, Time elapsed: 0.304 s <<< FAILURE! - in command_tests.CommandTest
+command_tests.CommandTest.testSetDeadlineCommandExecute  Time elapsed: 0.236 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because "this.notifications" is null
+	at command_tests.CommandTest.testSetDeadlineCommandExecute(CommandTest.java:123)
+
+command_tests.CommandTest.testGetSubmissionsByUserCommandExecute  Time elapsed: 0 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because "this.notifications" is null
+	at command_tests.CommandTest.testGetSubmissionsByUserCommandExecute(CommandTest.java:63)
+
+command_tests.CommandTest.testGetUsersByRoleCommandExecute  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because "this.notifications" is null
+	at command_tests.CommandTest.testGetUsersByRoleCommandExecute(CommandTest.java:69)
+
+command_tests.CommandTest.testCreateNotificationCommandExecute  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because "this.notifications" is null
+	at command_tests.CommandTest.testCreateNotificationCommandExecute(CommandTest.java:111)
+
+command_tests.CommandTest.testAssignPaperToPCMCommandExecute  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because "this.notifications" is null
+	at command_tests.CommandTest.testAssignPaperToPCMCommandExecute(CommandTest.java:105)
+
+command_tests.CommandTest.testViewRatingCommandExecute  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because "this.notifications" is null
+	at command_tests.CommandTest.testViewRatingCommandExecute(CommandTest.java:81)
+
+command_tests.CommandTest.testGetReviewsOnSubmissionCommandExecute  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because "this.notifications" is null
+	at command_tests.CommandTest.testGetReviewsOnSubmissionCommandExecute(CommandTest.java:57)
+
+command_tests.CommandTest.testCreateUserCommandExecute  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because "this.notifications" is null
+	at command_tests.CommandTest.testCreateUserCommandExecute(CommandTest.java:117)
+
+command_tests.CommandTest.testViewReportCommandExecute  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because "this.notifications" is null
+	at command_tests.CommandTest.testViewReportCommandExecute(CommandTest.java:87)
+
+command_tests.CommandTest.testDeleteUserCommandExecute  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because "this.notifications" is null
+	at command_tests.CommandTest.testDeleteUserCommandExecute(CommandTest.java:33)
+
+command_tests.CommandTest.testSetPaperPreferencesCommandExecute  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because "this.notifications" is null
+	at command_tests.CommandTest.testSetPaperPreferencesCommandExecute(CommandTest.java:141)
+
+command_tests.CommandTest.testGetAssignedReviewsRatingsCommandExecute  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because "this.notifications" is null
+	at command_tests.CommandTest.testGetAssignedReviewsRatingsCommandExecute(CommandTest.java:45)
+
+command_tests.CommandTest.testGetPreviousSubmissionsCommandExecute  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because "this.notifications" is null
+	at command_tests.CommandTest.testGetPreviousSubmissionsCommandExecute(CommandTest.java:51)
+
+command_tests.CommandTest.testViewPaperCommandExecute  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because "this.notifications" is null
+	at command_tests.CommandTest.testViewPaperCommandExecute(CommandTest.java:75)
+
+command_tests.CommandTest.testTriggerRevisionCommandExecute  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because "this.notifications" is null
+	at command_tests.CommandTest.testTriggerRevisionCommandExecute(CommandTest.java:147)
+
+command_tests.CommandTest.testReviewPaperCommandExecute  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because "this.notifications" is null
+	at command_tests.CommandTest.testReviewPaperCommandExecute(CommandTest.java:135)
+
+command_tests.CommandTest.testRatePaperCommandExecute  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because "this.notifications" is null
+	at command_tests.CommandTest.testRatePaperCommandExecute(CommandTest.java:129)
+
+command_tests.CommandTest.testLoginCommandExecute  Time elapsed: 0.001 s  <<< FAILURE!
+java.lang.AssertionError: expected:<> but was:<null>
+	at command_tests.CommandTest.testLoginCommandExecute(CommandTest.java:39)
+
+command_tests.CommandTest.testViewReviewCommandExecute  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because "this.notifications" is null
+	at command_tests.CommandTest.testViewReviewCommandExecute(CommandTest.java:93)
+
+command_tests.CommandTest.testAssignPaperToPCCCommandExecute  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because "this.notifications" is null
+	at command_tests.CommandTest.testAssignPaperToPCCCommandExecute(CommandTest.java:99)
+
