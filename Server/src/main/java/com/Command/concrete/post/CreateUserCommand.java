@@ -1,7 +1,9 @@
 package com.command.concrete.post;
 
+import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import com.UserRole;
 import com.command.Command;
@@ -32,7 +34,10 @@ public class CreateUserCommand extends Command{
             return "Invalid Permissions";
         }
         Root subject = root;
-        EnumSet<UserRole> roles = (EnumSet<UserRole>) elements[3];
+        String elementRoles = (String) elements[3];
+        EnumSet<UserRole> roles = Arrays.stream(elementRoles.split(","))
+                .map(UserRole::valueOf)
+                .collect(Collectors.toCollection(() -> EnumSet.noneOf(UserRole.class)));
         subject.addUser((String) elements[0], (String) elements[1],(String)elements[2],roles);
         return "Paper" + elements[0] + "assigned to PCM" + subjectID + "for review";
     }
