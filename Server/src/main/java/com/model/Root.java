@@ -51,7 +51,7 @@ public class Root {
     Path path = Paths.get(filePath);
     String jsonString = Files.readString(path);
     this.users = convertJsonToObject(jsonString, new TypeReference<List<User>>() {});
-    this.toJson();
+    // this.toJson();
 
   }
 
