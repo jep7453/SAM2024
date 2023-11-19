@@ -1,9 +1,11 @@
 package com.command.concrete.get;
 
+import com.UserRole;
 import com.command.Command;
 import com.model.Submission;
 import com.model.User;
 
+import java.util.EnumSet;
 import java.util.UUID;
 
 /**
@@ -22,20 +24,23 @@ public class ViewPaperCommand extends Command{
     @Override
     public String execute(UUID userID, UUID subjectID, Object... elements) {
         User actor = getActor(userID);
-        Submission subject = getSubject(subjectID);
+        if (checkPermissions(actor)) {
+            Submission subject = getSubject(subjectID);
+        } else {
+            return "Actor current role not able to run command";
+        }
         return null;
     }
 
     @Override
     public Submission getSubject(UUID id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getSubject'");
+        return (Submission) root.getSubject(id);
     }
 
     @Override
-    public boolean checkPermissions() {
-        // Everyone
-        throw new UnsupportedOperationException("Unimplemented method 'checkPermissions'");
+    public boolean checkPermissions(User actor) {
+        EnumSet<UserRole> validRoles = EnumSet.of(UserRole.SUBMITTER, UserRole.PCM, UserRole.PCC);
+        return validRoles.contains(actor.getCurrentRole);
     }
     
 }
