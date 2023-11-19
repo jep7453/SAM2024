@@ -4,6 +4,8 @@ package com.model;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Rating {
   private UUID ratingID;
@@ -46,11 +48,6 @@ public class Rating {
     // Implementation
   }
 
-  public String toJson() {
-    // Implementation
-    return null;
-  }
-
   public void setContent(int score, String body) {
     this.score = score;
     this.body = body;
@@ -68,11 +65,11 @@ public class Rating {
   }
   @Override
   public String toString() {
-      return "Rating {" +
-              "ratingID=" + ratingID +
-              ", pcc=" + pcc +
-              ", body='" + body + '\'' +
-              ", score=" + score +
-              '}';
+    return "{" +
+          "\"ratingID\": \"" + ratingID + "\"," +
+          "\"pcc\": \"" + pcc + "\"," +
+          "\"body\": \"" + body + "\"," +
+          "\"score\": " + score + "" +
+          "}";
   }
 }

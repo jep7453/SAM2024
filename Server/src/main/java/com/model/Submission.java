@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Submission{
   private UUID submissionID;
@@ -136,15 +138,6 @@ public class Submission{
     return null;
   }
 
-  public String toJson() {
-    // Implementation
-    return null;
-  }
-
-  public static Submission fromJson(String json) {
-    // Implementation
-    return null;
-  }
  /**
    * getSubject: 
    * The client has the attribute subject this is the id for the object that further commands will be executed on this id is passed along with every command
@@ -180,16 +173,29 @@ public Object getSubject(UUID id) {
   }
   @Override
   public String toString() {
-      return "Submission {" +
-              "submissionID=" + submissionID +
-              ", title='" + title + '\'' +
-              ", authors=" + authors +
-              ", submissionVersion=" + submissionVersion +
-              ", reviews=" + reviews +
-              ", rating=" + rating +
-              ", rateStatus=" + rateStatus +
-              ", filePath=" + filePath +
-              ", previousSubmission=" + previousSubmission +
-              '}';
+    String ret = "{" +
+          "\"submissionID\": \"" + submissionID + "\"," +
+          "\"title\": \"" + title + "\"," +
+          "\"authors\": " + formatAuthors() + "," +
+          "\"submissionVersion\": " + submissionVersion + "," +
+          "\"reviews\": " + reviews + "," +
+          "\"rating\": " + rating + "," +
+          "\"rateStatus\": " + rateStatus + "," +
+          "\"filePath\": \"" + filePath.toString().replaceAll("\\\\", "/") + "\"";
+    if(this.previousSubmission != null)
+      ret += ",\"previousSubmission\": " + previousSubmission + "";
+      ret += "}";
+      return ret;
+  }
+  private String formatAuthors() {
+    StringBuilder result = new StringBuilder("[");
+    for (int i = 0; i < authors.size(); i++) {
+        result.append("\"").append(authors.get(i)).append("\"");
+        if (i < authors.size() - 1) {
+            result.append(", ");
+        }
+    }
+    result.append("]");
+    return result.toString();
   }
 }

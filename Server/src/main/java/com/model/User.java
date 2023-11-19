@@ -2,12 +2,6 @@ package com.model;
 
 
 import java.nio.file.Path;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Map;
-import java.util.ArrayList;
-import java.util.UUID;
-import java.util.HashMap;
 
 import javax.management.Notification;
 import java.text.ParseException;
@@ -15,6 +9,8 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class User{
   private UUID userID;
@@ -346,29 +342,65 @@ public class User{
     return null;
   }
 
-  public String toJson() {
-    // Implementation
-    return null;
-  }
-
-  public static User fromJson(String json) {
-    // Implementation
-    return null;
-  }
   @Override
-  public String toString() {
-    return "User {" +
-                "userID=" + userID +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", name='" + name + '\'' +
-                ", possibleRoles=" + possibleRoles +
-                ", currentRole=" + currentRole +
-                ", notifications=" + notifications +
-                ", submissions=" + submissions +
-                ", requestedSubmissions=" + requestedSubmissions +
-                ", assignedReviews=" + assignedReviews +
-                ", assignedRatings=" + assignedRatings +
-                '}';
-  }
+public String toString() {
+    return "{" +
+            "\"userID\": \"" + userID + "\"," +
+            "\"username\": \"" + username + "\"," +
+            "\"password\": \"" + password + "\"," +
+            "\"name\": \"" + name + "\"," +
+            "\"possibleRoles\": " + handlePossibleRoles() + "," +
+            "\"currentRole\": \"" + currentRole + "\"," +
+            "\"notifications\": " + notifications + "," +
+            "\"submissions\": " + submissions + "," +
+            handleRequestedSubmissions() +
+            "\"assignedReviews\": [" + getReviewMappingString(assignedReviews) + "]," +
+            "\"assignedRatings\": [" + getRatingMappingString(assignedRatings) + "]" +
+            "}";
 }
+
+private String handlePossibleRoles() {
+    StringBuilder result = new StringBuilder();
+    int i = 0;
+    result.append("[");
+    for (UserRole userRole : possibleRoles) {
+        result.append("\"" + userRole.toString() + "\"");
+        if (i < possibleRoles.size() - 1) {
+            result.append(", ");
+        }
+        i++;
+    }
+    result.append("]");
+    return result.toString();
+}
+private String handleRequestedSubmissions() {
+    if (requestedSubmissions != null) {
+        return "\"requestedSubmissions\": " + requestedSubmissions + ",";
+    } return "";
+}
+private String getReviewMappingString(Map<UUID, UUID> map) {
+    StringBuilder result = new StringBuilder();
+    for (Map.Entry<UUID, UUID> entry : map.entrySet()) {
+        result.append("{\"submissionID\": \"")
+                .append(entry.getKey())
+                .append("\", \"reviewID\": \"")
+                .append(entry.getValue())
+                .append("\"}");
+    }
+    return result.toString();
+}
+
+private String getRatingMappingString(Map<UUID, UUID> map) {
+    StringBuilder result = new StringBuilder();
+    for (Map.Entry<UUID, UUID> entry : map.entrySet()) {
+        result.append("{\"submissionID\": \"")
+                .append(entry.getKey())
+                .append("\", \"ratingID\": \"")
+                .append(entry.getValue())
+                .append("\"}");
+    }
+    return result.toString();
+    }
+
+}
+

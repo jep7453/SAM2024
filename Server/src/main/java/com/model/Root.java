@@ -5,6 +5,8 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.FileWriter;   // Import the FileWriter class
+import java.io.IOException;  // Import the IOException class to handle errors
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -17,10 +19,10 @@ import java.util.UUID;
  */
 public class Root {
   private List<User> users;
+  private String filePath = "C:\\\\Users\\\\William Dabney\\\\OneDrive\\\\RIT\\\\swen-746\\\\SAM2024\\\\server\\\\src\\\\main\\\\resources\\\\SAM2024.json";
 
   public static void main(String[] args) {
     Root s = Root.getInstance();
-    System.out.println(s);
     //TODO Link to server controller
   }
 
@@ -46,10 +48,10 @@ public class Root {
    */
   private Root() throws JsonParseException, JsonMappingException, IOException {
     ObjectMapper objectMapper = new ObjectMapper();
-    Path path = Paths.get("C:\\Users\\William Dabney\\OneDrive\\RIT\\swen-746\\SAM2024\\server\\src\\main\\resources\\SAM2024.json");
+    Path path = Paths.get(filePath);
     String jsonString = Files.readString(path);
-    System.out.println(jsonString);
     this.users = convertJsonToObject(jsonString, new TypeReference<List<User>>() {});
+    this.toJson();
 
   }
 
@@ -124,16 +126,19 @@ public class Root {
   /**
    * Converts the objects that make up the system into json so that information can persist 
    * @return
+ * @throws IOException
    */
-  public String toJson() {
-    // Implementation
-    return null;
+  public void toJson() throws IOException {
+    ObjectMapper objectMapper = new ObjectMapper();
+    Object jsonObject = objectMapper.readValue(this.toString(), Object.class);
+    String prettyJson = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObject);
+    FileWriter myWriter = new FileWriter(filePath);
+    myWriter.write(prettyJson);
+    myWriter.close();
   }
 
   @Override
   public String toString() {
-      return "Root {" +
-              "users=" + users +
-              '}';
+    return users.toString();
   }
 }

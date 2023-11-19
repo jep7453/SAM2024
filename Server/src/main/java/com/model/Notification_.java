@@ -9,6 +9,8 @@ import java.util.Locale;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Notification_ {
   private UUID notificationID;
@@ -64,11 +66,6 @@ public class Notification_ {
     return false;
   }
 
-  public String toJson() {
-    // Implementation
-    return null;
-  }
-
   public Object getSubject(UUID id) {
     if (this.notificationID == id) {
       return this;
@@ -78,10 +75,10 @@ public class Notification_ {
 
   @Override
   public String toString() {
-      return "Notification {" +
-              "notificationID=" + notificationID +
-              ", alert='" + alert + '\'' +
-              ", deadline=" + deadline +
-              '}';
+    return "{" +
+          "\"notificationID\": \"" + notificationID + "\"," +
+          "\"alert\": \"" + alert + "\"," +
+          "\"deadline\": \"" + deadline + "\"" +
+          "}";
   }
 }
