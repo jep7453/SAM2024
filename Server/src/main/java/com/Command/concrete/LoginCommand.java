@@ -5,7 +5,16 @@ import com.model.Submission;
 import com.model.User;
 
 import java.util.UUID;
-
+/**
+ * Login 
+ * 
+ * Everyone
+ *      When the user attempts to login system calls this command
+ * 
+ * Valid Actors : All
+ * Subject : Root
+ * Return : Success/Fail
+ */
 public class LoginCommand extends Command {
 
     @Override
