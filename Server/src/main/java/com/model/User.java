@@ -41,7 +41,6 @@ public class User{
   public User(UUID userID, String username, String password, String name, EnumSet<UserRole> possibleRoles,
       UserRole currentRole, List<Notification_> notifications, List<Submission> submissions,
       Map<UUID, UUID> assignedReviews, Map<UUID, UUID> assignedRatings) {
-    this.userID = userID;
     this.username = username;
     this.password = password;
     this.name = name;
@@ -56,6 +55,18 @@ public class User{
    * =================================
    * Json -> Java
    */
+  public User(String username, String password, String name, EnumSet<UserRole> possibleRoles) {
+    this.userID = UUID.randomUUID();
+    this.username = username;
+    this.password = password;
+    this.name = name;
+    this.possibleRoles = possibleRoles;
+    this.notifications = new ArrayList<>();
+    this.submissions = new ArrayList<>();
+    this.assignedReviews = new HashMap<>();
+    this.assignedRatings = new HashMap<>();
+  }
+
   public User() {
   }
   @JsonProperty("userID")
@@ -118,7 +129,7 @@ public class User{
             + " has been submitted"),null,strDate);
 
     Root root = Root.getInstance();
-    root.getPCC().notify(notification);
+    root.getPCC().addNotification(notification);
 
     return true;
   }
@@ -154,7 +165,7 @@ public class User{
             + " has been submitted"),null,strDate);
 
     root = Root.getInstance();
-    root.getPCC().notify(notification);
+    root.getPCC().addNotification(notification);
 
 
     return true;
@@ -180,7 +191,7 @@ public class User{
     rating.setContent(ratingScore,body);
     return true;
   }
-  public Map<UUID, UUID> getAssignedSubmissions() {
+  public Map<UUID, UUID> getAssignedReviewsRatings() {
     if (this.currentRole == UserRole.PCM) {
       return assignedReviews;
     }
@@ -190,6 +201,26 @@ public class User{
     else {
       return null;
     }
+  }
+
+  public UUID getUserID() {
+    return userID;
+  }
+
+  public List<Review> getAssignedReviews() {
+    List<Review> reviews = new ArrayList<>();
+    for (UUID reviewID : assignedReviews.values()) {
+      reviews.add((Review) Root.getInstance().getSubject(reviewID));
+    }
+    return reviews;
+  }
+
+  public List<Rating> getAssignedRatings() {
+    List<Rating> ratings = new ArrayList<>();
+    for (UUID ratingID : assignedRatings.values()) {
+      ratings.add((Rating) Root.getInstance().getSubject(ratingID));
+    }
+    return ratings;
   }
 
   public List<Submission> getSubmissions() {
@@ -318,7 +349,7 @@ public class User{
     return triggeredNotifications;
   }
 
-  public void notify(Notification_ notification) {
+  public void addNotification(Notification_ notification) {
     notifications.add(notification);
   }
 

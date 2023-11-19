@@ -51,7 +51,11 @@ public class Review {
   }
 
   public void reviseReview() {
-    // Implementation
+    needsRevision = true;
+  }
+
+  public boolean getNeedsRevision() {
+    return needsRevision;
   }
 
   public Object getMetaData() {
@@ -63,8 +67,13 @@ public class Review {
     // Implementation
   }
 
-  public void printReview() {
-    // Implementation
+  public String viewReview() {
+    String review = "";
+    review += "Review ID: " + reviewID + "\n";
+    review += "PCM: " + pcm + "\n";
+    review += "Body: " + body + "\n";
+    review += "Score: " + score + "\n";
+    return review;
   }
 
   public Object getSubject(UUID id) {

@@ -108,8 +108,12 @@ public class Submission{
     reviews.add(review);
   }
 
-  public void submitPaper() {
-    // Implementation
+
+
+  public void TriggerRevision() {
+    for (Review review : reviews) {
+      review.reviseReview();
+    }
   }
 
   public List<String> getSubmissionHistory() {
@@ -133,10 +137,30 @@ public class Submission{
 
   }
 
-  public Object getMetaData() {
-    // Implementation
-    return null;
+  public String viewPaper() {
+    String paper = "";
+    paper += "Submission ID: " + submissionID + "\n";
+    paper += "Title: " + title + "\n";
+    paper += "Authors: " + authors + "\n";
+    paper += "Submission Version: " + submissionVersion + "\n";
+    paper += "File Path: " + filePath + "\n";
+    return paper;
   }
+
+  public String viewPreviousPaper() {
+    return previousSubmission.viewPaper();
+  }
+
+  public String viewPaperMetaData() {
+    String paper = "";
+    paper += "Submission ID: " + submissionID + "\n";
+    paper += "Title: " + title + "\n";
+    paper += "Authors: " + authors + "\n";
+    return paper;
+  }
+
+
+
 
  /**
    * getSubject: 

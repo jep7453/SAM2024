@@ -57,6 +57,15 @@ public class Rating {
     return this.ratingID;
   }
 
+  public String viewRating() {
+    String rating = "";
+    rating += "Rating ID: " + this.ratingID + "\n";
+    rating += "PCC: " + this.pcc + "\n";
+    rating += "Body: " + this.body + "\n";
+    rating += "Score: " + this.score + "\n";
+    return rating;
+  }
+
   public Object getSubject(UUID id) {
     if (this.ratingID == id) {
       return this;

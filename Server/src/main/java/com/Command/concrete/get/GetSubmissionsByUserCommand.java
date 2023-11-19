@@ -14,8 +14,7 @@ public class GetSubmissionsByUserCommand extends Command{
         User actor = getActor(userID);
         User subject = getSubject(subjectID);
         /**
-         * elements = body : String
-         * triggerRevision
+         * getSubmissions()
          */
         return null;
     }

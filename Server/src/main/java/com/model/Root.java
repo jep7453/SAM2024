@@ -13,6 +13,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.UUID;
 /**
@@ -101,6 +103,36 @@ public class Root {
       }
     }
     return null;
+
+  }
+
+  public void addUser(String username, String password, String name, EnumSet<UserRole> possibleRoles) {
+    User user = new User(username, password,name, possibleRoles);
+    users.add(user);
+  }
+
+  public void deleteUser(UUID userID) {
+    List<User> usersToRemove = new ArrayList<User>();
+    for (User user : users) {
+      if (user.getUserID().equals(userID)) {
+        usersToRemove.add(user);
+      }
+    }
+    users.removeAll(usersToRemove);
+  }
+
+  public List<User> getUsers() {
+    return users;
+  }
+
+  public List<User> getUsersByRole(UserRole role) {
+    List<User> usersByRole = new ArrayList<User>();
+    for (User user : users) {
+      if (user.getPossibleRoles().contains(role)) {
+        usersByRole.add(user);
+      }
+    }
+    return usersByRole;
   }
 
   /**
