@@ -184,7 +184,7 @@ public class Submission{
    */
 public Object getSubject(UUID id) {
     /* check self */
-    if (this.submissionID == id) {
+    if (this.submissionID.equals(id)) {
       return this;
     }
     Object subject;
@@ -201,6 +201,9 @@ public Object getSubject(UUID id) {
         return subject;
     }
     /* check previous submission (this getSubject is recursive) */
+    if (previousSubmission == null) {
+        return null;
+    }
     subject = previousSubmission.getSubject(id);
     if (subject != null) {
         return subject;
