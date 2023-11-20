@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="command_tests.CommandTest" time="0.304" tests="20" errors="19" skipped="0" failures="1">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="command_tests.CommandTest" time="0.257" tests="20" errors="15" skipped="0" failures="5">
   <properties>
     <property name="java.specification.version" value="15"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,7 +15,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-15.0.2\bin"/>
-    <property name="sun.java.command" value="C:\Users\William Dabney\AppData\Local\Temp\surefire7213360776556878518\surefirebooter5440715972701063528.jar C:\Users\William Dabney\AppData\Local\Temp\surefire7213360776556878518 2023-11-19T18-18-45_613-jvmRun1 surefire12546761717333748033tmp surefire_09034144664070874497tmp"/>
+    <property name="sun.java.command" value="C:\Users\William Dabney\AppData\Local\Temp\surefire4221238229281540085\surefirebooter1229726540770335859.jar C:\Users\William Dabney\AppData\Local\Temp\surefire4221238229281540085 2023-11-19T18-35-15_376-jvmRun1 surefire10012313624809189535tmp surefire_07500988317989963862tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="C:\Users\William Dabney\OneDrive\RIT\swen-746\SAM2024\server\target\test-classes;C:\Users\William Dabney\OneDrive\RIT\swen-746\SAM2024\server\target\classes;C:\Users\William Dabney\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.12.5\jackson-databind-2.12.5.jar;C:\Users\William Dabney\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.12.5\jackson-annotations-2.12.5.jar;C:\Users\William Dabney\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.12.5\jackson-core-2.12.5.jar;C:\Users\William Dabney\.m2\repository\junit\junit\4.12\junit-4.12.jar;C:\Users\William Dabney\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -30,7 +30,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\William Dabney\AppData\Local\Temp\surefire7213360776556878518\surefirebooter5440715972701063528.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\William Dabney\AppData\Local\Temp\surefire4221238229281540085\surefirebooter1229726540770335859.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="15.0.2+7-27"/>
@@ -55,103 +55,103 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="59.0"/>
   </properties>
-  <testcase name="testSetDeadlineCommandExecute" classname="command_tests.CommandTest" time="0.236">
-    <error message="Cannot invoke &quot;java.util.List.iterator()&quot; because &quot;this.notifications&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because "this.notifications" is null
+  <testcase name="testSetDeadlineCommandExecute" classname="command_tests.CommandTest" time="0.203">
+    <failure message="expected:&lt;&gt; but was:&lt;null&gt;" type="java.lang.AssertionError"><![CDATA[java.lang.AssertionError: expected:<> but was:<null>
 	at command_tests.CommandTest.testSetDeadlineCommandExecute(CommandTest.java:123)
-]]></error>
+]]></failure>
   </testcase>
   <testcase name="testGetSubmissionsByUserCommandExecute" classname="command_tests.CommandTest" time="0">
-    <error message="Cannot invoke &quot;java.util.List.iterator()&quot; because &quot;this.notifications&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because "this.notifications" is null
+    <error message="Cannot invoke &quot;com.model.User.getCurrentRole()&quot; because &quot;actor&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "com.model.User.getCurrentRole()" because "actor" is null
 	at command_tests.CommandTest.testGetSubmissionsByUserCommandExecute(CommandTest.java:63)
 ]]></error>
   </testcase>
   <testcase name="testGetUsersByRoleCommandExecute" classname="command_tests.CommandTest" time="0.001">
-    <error message="Cannot invoke &quot;java.util.List.iterator()&quot; because &quot;this.notifications&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because "this.notifications" is null
+    <error message="Cannot invoke &quot;com.model.User.getCurrentRole()&quot; because &quot;actor&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "com.model.User.getCurrentRole()" because "actor" is null
 	at command_tests.CommandTest.testGetUsersByRoleCommandExecute(CommandTest.java:69)
 ]]></error>
   </testcase>
-  <testcase name="testCreateNotificationCommandExecute" classname="command_tests.CommandTest" time="0.001">
-    <error message="Cannot invoke &quot;java.util.List.iterator()&quot; because &quot;this.notifications&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because "this.notifications" is null
+  <testcase name="testCreateNotificationCommandExecute" classname="command_tests.CommandTest" time="0">
+    <failure message="expected:&lt;&gt; but was:&lt;null&gt;" type="java.lang.AssertionError"><![CDATA[java.lang.AssertionError: expected:<> but was:<null>
 	at command_tests.CommandTest.testCreateNotificationCommandExecute(CommandTest.java:111)
-]]></error>
+]]></failure>
   </testcase>
   <testcase name="testAssignPaperToPCMCommandExecute" classname="command_tests.CommandTest" time="0.001">
-    <error message="Cannot invoke &quot;java.util.List.iterator()&quot; because &quot;this.notifications&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because "this.notifications" is null
+    <error message="Cannot invoke &quot;com.model.User.getCurrentRole()&quot; because &quot;actor&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "com.model.User.getCurrentRole()" because "actor" is null
 	at command_tests.CommandTest.testAssignPaperToPCMCommandExecute(CommandTest.java:105)
 ]]></error>
   </testcase>
   <testcase name="testViewRatingCommandExecute" classname="command_tests.CommandTest" time="0.001">
-    <error message="Cannot invoke &quot;java.util.List.iterator()&quot; because &quot;this.notifications&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because "this.notifications" is null
+    <error message="Cannot invoke &quot;com.model.User.getCurrentRole()&quot; because &quot;actor&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "com.model.User.getCurrentRole()" because "actor" is null
 	at command_tests.CommandTest.testViewRatingCommandExecute(CommandTest.java:81)
 ]]></error>
   </testcase>
-  <testcase name="testGetReviewsOnSubmissionCommandExecute" classname="command_tests.CommandTest" time="0.001">
-    <error message="Cannot invoke &quot;java.util.List.iterator()&quot; because &quot;this.notifications&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because "this.notifications" is null
+  <testcase name="testGetReviewsOnSubmissionCommandExecute" classname="command_tests.CommandTest" time="0.002">
+    <error message="Cannot invoke &quot;com.model.User.getCurrentRole()&quot; because &quot;actor&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "com.model.User.getCurrentRole()" because "actor" is null
 	at command_tests.CommandTest.testGetReviewsOnSubmissionCommandExecute(CommandTest.java:57)
 ]]></error>
   </testcase>
   <testcase name="testCreateUserCommandExecute" classname="command_tests.CommandTest" time="0.001">
-    <error message="Cannot invoke &quot;java.util.List.iterator()&quot; because &quot;this.notifications&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because "this.notifications" is null
+    <error message="Cannot invoke &quot;com.model.User.getCurrentRole()&quot; because &quot;actor&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "com.model.User.getCurrentRole()" because "actor" is null
 	at command_tests.CommandTest.testCreateUserCommandExecute(CommandTest.java:117)
 ]]></error>
   </testcase>
   <testcase name="testViewReportCommandExecute" classname="command_tests.CommandTest" time="0.001">
-    <error message="Cannot invoke &quot;java.util.List.iterator()&quot; because &quot;this.notifications&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because "this.notifications" is null
+    <error message="Cannot invoke &quot;com.model.User.getCurrentRole()&quot; because &quot;actor&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "com.model.User.getCurrentRole()" because "actor" is null
 	at command_tests.CommandTest.testViewReportCommandExecute(CommandTest.java:87)
 ]]></error>
   </testcase>
   <testcase name="testDeleteUserCommandExecute" classname="command_tests.CommandTest" time="0.001">
-    <error message="Cannot invoke &quot;java.util.List.iterator()&quot; because &quot;this.notifications&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because "this.notifications" is null
+    <failure message="expected:&lt;&gt; but was:&lt;null&gt;" type="java.lang.AssertionError"><![CDATA[java.lang.AssertionError: expected:<> but was:<null>
 	at command_tests.CommandTest.testDeleteUserCommandExecute(CommandTest.java:33)
-]]></error>
+]]></failure>
   </testcase>
   <testcase name="testSetPaperPreferencesCommandExecute" classname="command_tests.CommandTest" time="0.001">
-    <error message="Cannot invoke &quot;java.util.List.iterator()&quot; because &quot;this.notifications&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because "this.notifications" is null
+    <error message="Cannot invoke &quot;com.model.User.getCurrentRole()&quot; because &quot;actor&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "com.model.User.getCurrentRole()" because "actor" is null
 	at command_tests.CommandTest.testSetPaperPreferencesCommandExecute(CommandTest.java:141)
 ]]></error>
   </testcase>
   <testcase name="testGetAssignedReviewsRatingsCommandExecute" classname="command_tests.CommandTest" time="0.001">
-    <error message="Cannot invoke &quot;java.util.List.iterator()&quot; because &quot;this.notifications&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because "this.notifications" is null
+    <error message="Cannot invoke &quot;com.model.User.getCurrentRole()&quot; because &quot;actor&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "com.model.User.getCurrentRole()" because "actor" is null
 	at command_tests.CommandTest.testGetAssignedReviewsRatingsCommandExecute(CommandTest.java:45)
 ]]></error>
   </testcase>
-  <testcase name="testGetPreviousSubmissionsCommandExecute" classname="command_tests.CommandTest" time="0.001">
-    <error message="Cannot invoke &quot;java.util.List.iterator()&quot; because &quot;this.notifications&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because "this.notifications" is null
+  <testcase name="testGetPreviousSubmissionsCommandExecute" classname="command_tests.CommandTest" time="0">
+    <error message="Cannot invoke &quot;com.model.User.getCurrentRole()&quot; because &quot;actor&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "com.model.User.getCurrentRole()" because "actor" is null
 	at command_tests.CommandTest.testGetPreviousSubmissionsCommandExecute(CommandTest.java:51)
 ]]></error>
   </testcase>
   <testcase name="testViewPaperCommandExecute" classname="command_tests.CommandTest" time="0.001">
-    <error message="Cannot invoke &quot;java.util.List.iterator()&quot; because &quot;this.notifications&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because "this.notifications" is null
+    <error message="Cannot invoke &quot;com.model.User.getCurrentRole()&quot; because &quot;actor&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "com.model.User.getCurrentRole()" because "actor" is null
 	at command_tests.CommandTest.testViewPaperCommandExecute(CommandTest.java:75)
 ]]></error>
   </testcase>
   <testcase name="testTriggerRevisionCommandExecute" classname="command_tests.CommandTest" time="0.001">
-    <error message="Cannot invoke &quot;java.util.List.iterator()&quot; because &quot;this.notifications&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because "this.notifications" is null
+    <failure message="expected:&lt;&gt; but was:&lt;null&gt;" type="java.lang.AssertionError"><![CDATA[java.lang.AssertionError: expected:<> but was:<null>
 	at command_tests.CommandTest.testTriggerRevisionCommandExecute(CommandTest.java:147)
-]]></error>
+]]></failure>
   </testcase>
-  <testcase name="testReviewPaperCommandExecute" classname="command_tests.CommandTest" time="0.001">
-    <error message="Cannot invoke &quot;java.util.List.iterator()&quot; because &quot;this.notifications&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because "this.notifications" is null
+  <testcase name="testReviewPaperCommandExecute" classname="command_tests.CommandTest" time="0.002">
+    <error message="Cannot invoke &quot;com.model.User.getCurrentRole()&quot; because &quot;actor&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "com.model.User.getCurrentRole()" because "actor" is null
 	at command_tests.CommandTest.testReviewPaperCommandExecute(CommandTest.java:135)
 ]]></error>
   </testcase>
   <testcase name="testRatePaperCommandExecute" classname="command_tests.CommandTest" time="0.001">
-    <error message="Cannot invoke &quot;java.util.List.iterator()&quot; because &quot;this.notifications&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because "this.notifications" is null
+    <error message="Cannot invoke &quot;com.model.User.getCurrentRole()&quot; because &quot;actor&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "com.model.User.getCurrentRole()" because "actor" is null
 	at command_tests.CommandTest.testRatePaperCommandExecute(CommandTest.java:129)
 ]]></error>
   </testcase>
-  <testcase name="testLoginCommandExecute" classname="command_tests.CommandTest" time="0.001">
+  <testcase name="testLoginCommandExecute" classname="command_tests.CommandTest" time="0">
     <failure message="expected:&lt;&gt; but was:&lt;null&gt;" type="java.lang.AssertionError"><![CDATA[java.lang.AssertionError: expected:<> but was:<null>
 	at command_tests.CommandTest.testLoginCommandExecute(CommandTest.java:39)
 ]]></failure>
   </testcase>
   <testcase name="testViewReviewCommandExecute" classname="command_tests.CommandTest" time="0.001">
-    <error message="Cannot invoke &quot;java.util.List.iterator()&quot; because &quot;this.notifications&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because "this.notifications" is null
+    <error message="Cannot invoke &quot;com.model.User.getCurrentRole()&quot; because &quot;actor&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "com.model.User.getCurrentRole()" because "actor" is null
 	at command_tests.CommandTest.testViewReviewCommandExecute(CommandTest.java:93)
 ]]></error>
   </testcase>
   <testcase name="testAssignPaperToPCCCommandExecute" classname="command_tests.CommandTest" time="0.001">
-    <error message="Cannot invoke &quot;java.util.List.iterator()&quot; because &quot;this.notifications&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because "this.notifications" is null
+    <error message="Cannot invoke &quot;com.model.User.getCurrentRole()&quot; because &quot;actor&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "com.model.User.getCurrentRole()" because "actor" is null
 	at command_tests.CommandTest.testAssignPaperToPCCCommandExecute(CommandTest.java:99)
 ]]></error>
   </testcase>

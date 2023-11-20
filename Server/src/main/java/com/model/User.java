@@ -26,13 +26,13 @@ public class User{
   @JsonProperty("currentRole")
   private UserRole currentRole;
   @JsonProperty("notifications")
-  private List<Notification_> notifications;
+  private List<Notification_> notifications = new ArrayList<>();
   /* List of unique submissions each submission is the head of a linked list of past submissions (this is how version control is handled) */
   @JsonProperty("submissions")
-  private List<Submission> submissions;
+  private List<Submission> submissions = new ArrayList<>();
   /* The submissions that the PCM has requested to review */
   @JsonProperty("requestedSubmissions")
-  private List<UUID> requestedSubmissions;
+  private List<UUID> requestedSubmissions = new ArrayList<>();
   /* The reviews that the PCM is assigned these are removed once a report is generated and sent to the SUBMITTER */
   private Map<UUID, UUID> assignedReviews = new HashMap<>();
   /* The  rateings that the PCC is assigned these are removed once a report is generated and sent to the SUBMITTER*/

@@ -21,7 +21,7 @@ import java.util.UUID;
  * System 
  */
 public class Root {
-  private List<User> users;
+  private List<User> users = new ArrayList<>();
   private String filePath = "C:\\\\Users\\\\William Dabney\\\\OneDrive\\\\RIT\\\\swen-746\\\\SAM2024\\\\server\\\\src\\\\main\\\\resources\\\\SAM2024.json";
 
   public static void main(String[] args) {
