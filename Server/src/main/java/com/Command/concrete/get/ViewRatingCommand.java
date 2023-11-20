@@ -25,7 +25,7 @@ public class ViewRatingCommand extends Command{
     @Override
     public String execute(UUID userID, UUID subjectID, Object... elements) {
         User actor = getActor(userID);
-        if (checkPermissions(actor)) {
+        if (!checkPermissions(actor)) {
             return "Actor current role not able to run command";
         }
         Rating subject = getSubject(subjectID);

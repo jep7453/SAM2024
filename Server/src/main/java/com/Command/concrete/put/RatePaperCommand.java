@@ -33,9 +33,8 @@ public class RatePaperCommand extends Command{
          * elements = submissionID : UUID, ratingScore : int, body : String
          * ratePaper
          */
-        UUID submissionID = UUID.fromString((String) elements[0]);
-        actor.ratePaper(submissionID, (int) elements[1], (String) elements[2]);
-        return "User " + actor.getName() + " rated paper " + submissionID;
+        actor.ratePaper(subjectID, (int) elements[0], (String) elements[1]);
+        return "User " + actor.getName() + " submitted rating " + subjectID;
     }
 
     @Override

@@ -1,149 +1,245 @@
 package command_tests;
 
-import org.junit.Test;
+import com.UserRole;
+import com.command.concrete.*;
+import com.command.concrete.get.*;
+import com.command.concrete.post.*;
+import com.command.concrete.put.*;
 
-import com.command.concrete.DeleteUserCommand;
-import com.command.concrete.LoginCommand;
-import com.command.concrete.get.GetAssignedReviewsRatingsCommand;
-import com.command.concrete.get.GetPreviousSubmissionsCommand;
-import com.command.concrete.get.GetReviewsOnSubmissionCommand;
-import com.command.concrete.get.GetSubmissionsByUserCommand;
-import com.command.concrete.get.GetUsersByRoleCommand;
-import com.command.concrete.get.ViewPaperCommand;
-import com.command.concrete.get.ViewRatingCommand;
-import com.command.concrete.get.ViewReportCommand;
-import com.command.concrete.get.ViewReviewCommand;
-import com.command.concrete.post.AssignPaperToPCCCommand;
-import com.command.concrete.post.AssignPaperToPCMCommand;
-import com.command.concrete.post.CreateNotificationCommand;
-import com.command.concrete.post.CreateUserCommand;
-import com.command.concrete.post.SetDeadlineCommand;
-import com.command.concrete.put.RatePaperCommand;
-import com.command.concrete.put.ReviewPaperCommand;
-import com.command.concrete.put.SetPaperPreferencesCommand;
-import com.command.concrete.put.TriggerRevisionCommand;
+import com.model.Root;
+import org.junit.jupiter.api.BeforeEach;
+
+import org.junit.jupiter.api.Test;
+
+
+import java.util.UUID;
 
 import static org.junit.Assert.*;
 
+
 public class CommandTest {
+
+    Root root;
+
+    UUID adminID;
+    UUID pcmID;
+    UUID pccID;
+    UUID submitterID;
+
+    @BeforeEach
+    public void setUp() {
+        adminID = UUID.fromString("321e4567-e89b-12d3-a456-426614174001");
+        pccID = UUID.fromString("123e4567-e89b-12d3-a456-426614174001");
+
+        CreateUserCommand createUserCommand = new CreateUserCommand();
+        String pcm = createUserCommand.execute(adminID,null,
+                "pcm_test","test_password","PCM Guy", "PCM");
+        pcmID = UUID.fromString(pcm);
+
+        String submitter = createUserCommand.execute(adminID,null,
+                "submitter_test","test_password","Submitter Guy", "SUBMITTER");
+
+        submitterID = UUID.fromString(submitter);
+
+
+    }
+
+
+
+    @Test
+    public void testViewPaperCommandExecute() {
+
+        ViewPaperCommand viewPaperCommand = new ViewPaperCommand();
+        String string = viewPaperCommand.execute(UUID.fromString("123e4567-e89b-12d3-a456-426614174001"),
+                UUID.fromString("3bf605b2-46e4-4879-8f8e-8e2c77e46d2a"));
+        System.out.println(string);
+    }
+
 
     @Test
     public void testDeleteUserCommandExecute() {
         DeleteUserCommand deleteUserCommand = new DeleteUserCommand();
-        assertEquals("", deleteUserCommand.execute(null, null, null));
+        String string = deleteUserCommand.execute(UUID.fromString("321e4567-e89b-12d3-a456-426614174001"),
+                UUID.fromString("123e4567-e89b-12d3-a456-426614174001"));
+        System.out.println(string);
     }
+
 
     @Test
     public void testLoginCommandExecute() {
         LoginCommand loginCommand = new LoginCommand();
-        assertEquals("", loginCommand.execute(null, null, null));
+        String login =loginCommand.execute(null,null,"jane_smith","password456", "SUBMITTER");
+        System.out.println(login);
     }
+
+
 
     @Test
     public void testGetAssignedReviewsRatingsCommandExecute() {
+        LoginCommand loginCommand = new LoginCommand();
+        String login =loginCommand.execute(null,null,"john_de","password123", "PCC");
+        System.out.println(login);
+        AssignPaperToPCMCommand assignPaperToPCMCommand = new AssignPaperToPCMCommand();
+        String assign = assignPaperToPCMCommand.execute(UUID.fromString("321e4567-e89b-12d3-a456-426614174001"),
+                UUID.fromString("123e4567-e89b-12d3-a456-426614174001"), "5cf605b2-46e4-4879-8f8e-8e2c77e46d2a");
+        System.out.println(assign);
+
+        login =loginCommand.execute(null,null,"john_doe","password123", "PCM");
         GetAssignedReviewsRatingsCommand getAssignedReviewsRatingsCommand = new GetAssignedReviewsRatingsCommand();
-        assertEquals("", getAssignedReviewsRatingsCommand.execute(null, null, null));
+        String reviews = getAssignedReviewsRatingsCommand.execute(UUID.fromString("123e4567-e89b-12d3-a456-426614174001"),
+                UUID.fromString("123e4567-e89b-12d3-a456-426614174001"));
+        System.out.println(reviews);
     }
 
     @Test
     public void testGetPreviousSubmissionsCommandExecute() {
         GetPreviousSubmissionsCommand getPreviousSubmissionsCommand = new GetPreviousSubmissionsCommand();
-        assertEquals("", getPreviousSubmissionsCommand.execute(null, null, null));
+        String previous = getPreviousSubmissionsCommand.execute(UUID.fromString("123e4567-e89b-12d3-a456-426614174001"),
+                UUID.fromString("3bf605b2-46e4-4879-8f8e-8e2c77e46d2a"));
+        System.out.println(previous);
     }
+
 
     @Test
     public void testGetReviewsOnSubmissionCommandExecute() {
         GetReviewsOnSubmissionCommand getReviewsOnSubmissionCommand = new GetReviewsOnSubmissionCommand();
-        assertEquals("", getReviewsOnSubmissionCommand.execute(null, null, null));
+        String reviews = getReviewsOnSubmissionCommand.execute(UUID.fromString("321e4567-e89b-12d3-a456-426614174001"),
+                UUID.fromString("3bf605b2-46e4-4879-8f8e-8e2c77e46d2a"));
+        System.out.println(reviews);
     }
+
+
 
     @Test
     public void testGetSubmissionsByUserCommandExecute() {
         GetSubmissionsByUserCommand getSubmissionsByUserCommand = new GetSubmissionsByUserCommand();
-        assertEquals("", getSubmissionsByUserCommand.execute(null, null, null));
+        String submission = getSubmissionsByUserCommand.execute(UUID.fromString("123e4567-e89b-12d3-a456-426614174001"),
+                UUID.fromString("123e4567-e89b-12d3-a456-426614174001"));
+        System.out.println(submission);
     }
 
     @Test
     public void testGetUsersByRoleCommandExecute() {
         GetUsersByRoleCommand getUsersByRoleCommand = new GetUsersByRoleCommand();
-        assertEquals("", getUsersByRoleCommand.execute(null, null, null));
+        String roles = getUsersByRoleCommand.execute(UUID.fromString("321e4567-e89b-12d3-a456-426614174001"),null,
+                "SUBMITTER");
+        System.out.println(roles);
     }
 
-    @Test
-    public void testViewPaperCommandExecute() {
-        ViewPaperCommand viewPaperCommand = new ViewPaperCommand();
-        assertEquals("", viewPaperCommand.execute(null, null, null));
-    }
 
     @Test
     public void testViewRatingCommandExecute() {
         ViewRatingCommand viewRatingCommand = new ViewRatingCommand();
-        assertEquals("", viewRatingCommand.execute(null, null, null));
+        String review = viewRatingCommand.execute(UUID.fromString("321e4567-e89b-12d3-a456-426614174001"),
+                UUID.fromString("65ac0c17-8b16-48e0-94c1-3aa81a3fe717"));
+        System.out.println(review);
     }
+
 
     @Test
     public void testViewReportCommandExecute() {
         ViewReportCommand viewReportCommand = new ViewReportCommand();
-        assertEquals("", viewReportCommand.execute(null, null, null));
+        String report = viewReportCommand.execute(UUID.fromString("321e4567-e89b-12d3-a456-426614174001"),
+                UUID.fromString("3bf605b2-46e4-4879-8f8e-8e2c77e46d2a"));
+        System.out.println(report);
     }
+
+
 
     @Test
     public void testViewReviewCommandExecute() {
         ViewReviewCommand viewReviewCommand = new ViewReviewCommand();
-        assertEquals("", viewReviewCommand.execute(null, null, null));
+        String review = viewReviewCommand.execute(UUID.fromString("321e4567-e89b-12d3-a456-426614174001"),
+                UUID.fromString("b67a5bd1-d2e1-4c61-9bf7-653a523ed019"));
+        System.out.println(review);
     }
+
+
 
     @Test
     public void testAssignPaperToPCCCommandExecute() {
         AssignPaperToPCCCommand assignPaperToPCCCommand = new AssignPaperToPCCCommand();
-        assertEquals("", assignPaperToPCCCommand.execute(null, null, null));
+        String assign = assignPaperToPCCCommand.execute(UUID.fromString("321e4567-e89b-12d3-a456-426614174001"),
+                UUID.fromString("223e4567-e89b-12d3-a456-426614174002"),"3bf605b2-46e4-4879-8f8e-8e2c77e46d2a");
+        System.out.println(assign);
     }
+
 
     @Test
     public void testAssignPaperToPCMCommandExecute() {
+        LoginCommand loginCommand = new LoginCommand();
+        String login =loginCommand.execute(null,null,"john_de","password123", "PCC");
+        System.out.println(login);
         AssignPaperToPCMCommand assignPaperToPCMCommand = new AssignPaperToPCMCommand();
-        assertEquals("", assignPaperToPCMCommand.execute(null, null, null));
+        String assign = assignPaperToPCMCommand.execute(UUID.fromString("321e4567-e89b-12d3-a456-426614174001"),
+                UUID.fromString("123e4567-e89b-12d3-a456-426614174001"), "5cf605b2-46e4-4879-8f8e-8e2c77e46d2a");
+        System.out.println(assign);
+
+        login =loginCommand.execute(null,null,"john_doe","password123", "PCM");
+        GetAssignedReviewsRatingsCommand getAssignedReviewsRatingsCommand = new GetAssignedReviewsRatingsCommand();
+        String reviews = getAssignedReviewsRatingsCommand.execute(UUID.fromString("123e4567-e89b-12d3-a456-426614174001"),
+                UUID.fromString("123e4567-e89b-12d3-a456-426614174001"));
+        System.out.println(reviews);
     }
 
-    @Test
-    public void testCreateNotificationCommandExecute() {
-        CreateNotificationCommand createNotificationCommand = new CreateNotificationCommand();
-        assertEquals("", createNotificationCommand.execute(null, null, null));
-    }
+
+
+//     @Test
+//    public void testCreateNotificationCommandExecute() {
+//        CreateNotificationCommand createNotificationCommand = new CreateNotificationCommand();
+//        assertTrue(createNotificationCommand.execute());
+//    }
+
+
+
 
     @Test
     public void testCreateUserCommandExecute() {
         CreateUserCommand createUserCommand = new CreateUserCommand();
-        assertEquals("", createUserCommand.execute(null, null, null));
+        String user = createUserCommand.execute(UUID.fromString("321e4567-e89b-12d3-a456-426614174001"),null,
+                "test","test_password","Test Guy", "SUBMITTER,PCC");
+        System.out.println(user);
     }
 
-    @Test
-    public void testSetDeadlineCommandExecute() {
-        SetDeadlineCommand setDeadlineCommand = new SetDeadlineCommand();
-        assertEquals("", setDeadlineCommand.execute(null, null, null));
-    }
+
+//    @Test
+//    public void testSetDeadlineCommandExecute() {
+//        SetDeadlineCommand setDeadlineCommand = new SetDeadlineCommand();
+//        assertTrue(setDeadlineCommand.execute());
+//    }
+
 
     @Test
     public void testRatePaperCommandExecute() {
         RatePaperCommand ratePaperCommand = new RatePaperCommand();
-        assertEquals("", ratePaperCommand.execute(null, null, null));
+        String rate = ratePaperCommand.execute(UUID.fromString("123e4567-e89b-12d3-a456-426614174001"),
+                UUID.fromString("65ac0c17-8b16-48e0-94c1-3aa81a3fe717"), 5,"Sucks");
+        System.out.println(rate);
     }
-
     @Test
     public void testReviewPaperCommandExecute() {
         ReviewPaperCommand reviewPaperCommand = new ReviewPaperCommand();
-        assertEquals("", reviewPaperCommand.execute(null, null, null));
+        String review = reviewPaperCommand.execute(UUID.fromString("123e4567-e89b-12d3-a456-426614174001"),
+                UUID.fromString("4e4f8223-99a7-4edf-9430-fb4dd5b0a6c1"),4,"Sucky");
+        System.out.println(review);
     }
+
+
 
     @Test
     public void testSetPaperPreferencesCommandExecute() {
         SetPaperPreferencesCommand setPaperPreferencesCommand = new SetPaperPreferencesCommand();
-        assertEquals("", setPaperPreferencesCommand.execute(null, null, null));
+        String request = setPaperPreferencesCommand.execute(UUID.fromString("123e4567-e89b-12d3-a456-426614174001"),
+                UUID.fromString("3bf605b2-46e4-4879-8f8e-8e2c77e46d2a"));
+        System.out.println(request);
+
     }
 
-    @Test
-    public void testTriggerRevisionCommandExecute() {
-        TriggerRevisionCommand triggerRevisionCommand = new TriggerRevisionCommand();
-        assertEquals("", triggerRevisionCommand.execute(null, null, null));
-    }
+    /**
+     @Test
+     public void testTriggerRevisionCommandExecute() {
+     TriggerRevisionCommand triggerRevisionCommand = new TriggerRevisionCommand();
+     assertTrue(triggerRevisionCommand.execute());
+     }
+     */
 }

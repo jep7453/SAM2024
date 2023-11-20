@@ -67,7 +67,7 @@ public class Notification_ {
   }
 
   public Object getSubject(UUID id) {
-    if (this.notificationID == id) {
+    if (this.notificationID.equals(id)) {
       return this;
     }
     return null;

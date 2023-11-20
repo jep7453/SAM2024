@@ -38,8 +38,8 @@ public class CreateUserCommand extends Command{
         EnumSet<UserRole> roles = Arrays.stream(elementRoles.split(","))
                 .map(UserRole::valueOf)
                 .collect(Collectors.toCollection(() -> EnumSet.noneOf(UserRole.class)));
-        subject.addUser((String) elements[0], (String) elements[1],(String)elements[2],roles);
-        return "Paper" + elements[0] + "assigned to PCM" + subjectID + "for review";
+        UUID newUser = subject.addUser((String) elements[0], (String) elements[1],(String)elements[2],roles);
+        return newUser.toString();
     }
 
     @Override

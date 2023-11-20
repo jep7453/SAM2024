@@ -22,17 +22,17 @@ public class User{
   @JsonProperty("name")
   private String name;
   @JsonProperty("possibleRoles")
-  private EnumSet<UserRole> possibleRoles;
+  private EnumSet<UserRole> possibleRoles = EnumSet.noneOf(UserRole.class);
   @JsonProperty("currentRole")
   private UserRole currentRole;
   @JsonProperty("notifications")
-  private List<Notification_> notifications;
+  private List<Notification_> notifications = new ArrayList<>();
   /* List of unique submissions each submission is the head of a linked list of past submissions (this is how version control is handled) */
   @JsonProperty("submissions")
-  private List<Submission> submissions;
+  private List<Submission> submissions = new ArrayList<>();
   /* The submissions that the PCM has requested to review */
   @JsonProperty("requestedSubmissions")
-  private List<UUID> requestedSubmissions;
+  private List<UUID> requestedSubmissions = new ArrayList<>();
   /* The reviews that the PCM is assigned these are removed once a report is generated and sent to the SUBMITTER */
   private Map<UUID, UUID> assignedReviews = new HashMap<>();
   /* The  rateings that the PCC is assigned these are removed once a report is generated and sent to the SUBMITTER*/
@@ -181,13 +181,9 @@ public class User{
    * @param body         The body of the rating.
    * @return True if rating is successful, false otherwise.
    */
-  public boolean ratePaper(UUID submissionID, int ratingScore, String body) {
-    if (this.currentRole == UserRole.PCC) {
-      return false;
-    }
+  public boolean ratePaper(UUID ratingID, int ratingScore, String body) {
     Root root = Root.getInstance();
-    Submission submission = (Submission) root.getSubject(submissionID);
-    Rating rating = submission.getRating();
+    Rating rating = (Rating) root.getSubject(ratingID);
     rating.setContent(ratingScore,body);
     return true;
   }
@@ -215,12 +211,23 @@ public class User{
     return userID;
   }
 
-  public List<Review> getAssignedReviews() {
-    List<Review> reviews = new ArrayList<>();
-    for (UUID reviewID : assignedReviews.values()) {
-      reviews.add((Review) Root.getInstance().getSubject(reviewID));
+  public Map<UUID, String> getAssignedReviews() {
+    Root root = Root.getInstance();
+    Map<UUID,String> reviews = new HashMap<>();
+    for (Map.Entry<UUID, UUID> assignedReview : assignedReviews.entrySet()) {
+        Review review = (Review) root.getSubject(assignedReview.getValue());
+        if(review != null) {
+          reviews.put(assignedReview.getKey(), review.getReviewID().toString());
+        } else {
+          assignedReviews.remove(assignedReview.getKey());
+        }
     }
     return reviews;
+//    for (UUID reviewID : assignedReviews.values()) {
+//      reviews.add((Review) Root.getInstance().getSubject(reviewID));
+//    }
+//    return reviews
+
   }
 
   public List<Rating> getAssignedRatings() {
@@ -245,13 +252,8 @@ public class User{
    * @param body         The body of the review.
    * @return True if review is successful, false otherwise.
    */
-  public boolean reviewPaper(UUID submissionID, int reviewScore, String body) {
-    if (this.currentRole == UserRole.PCM) {
-      return false;
-    }
+  public boolean reviewPaper(UUID reviewID, int reviewScore, String body) {
     Root root = Root.getInstance();
-    Submission submission = (Submission) root.getSubject(submissionID);
-    UUID reviewID = assignedReviews.get(submissionID);
     Review review = (Review) root.getSubject(reviewID);
     review.setContent(reviewScore,body);
     return true;
@@ -265,9 +267,7 @@ public class User{
    * @return True if assignment is successful, false otherwise.
    */
   public boolean assignPaperToPCM(UUID submissionID){
-    if (this.currentRole != UserRole.PCM) {
-      return false;
-    }
+
     Root root = Root.getInstance();
     Submission submission = (Submission) root.getSubject(submissionID);
     if (submission == null) {
@@ -296,9 +296,6 @@ public class User{
    * @return
    */
   public boolean assignPaperToPCC(UUID submissionID) {
-    if (this.currentRole != UserRole.PCC) {
-      return false;
-    }
     Root root = Root.getInstance();
     Submission submission = (Submission) root.getSubject(submissionID);
     if (submission == null) {
@@ -318,9 +315,6 @@ public class User{
    * @return True if request is successful, false otherwise.
    */
   public boolean requestReview(UUID submissionID) {
-    if (this.currentRole != UserRole.PCM) {
-      return false;
-    }
     Submission submission = (Submission) getSubject(submissionID);
     if (submission == null) {
       return false;
@@ -380,7 +374,7 @@ public class User{
    */
   public Object getSubject(UUID id) {
     /* check self */
-    if (this.userID == id) {
+    if (this.userID.equals(id)) {
       return this;
     }
     Object subject;

@@ -38,7 +38,7 @@ public class ViewReportCommand extends Command{
 
     @Override
     public boolean checkPermissions(User actor) {
-        EnumSet<UserRole> validRoles = EnumSet.of(UserRole.SUBMITTER);
+        EnumSet<UserRole> validRoles = EnumSet.of(UserRole.SUBMITTER, UserRole.PCC);
         return validRoles.contains(actor.getCurrentRole());
     }
     

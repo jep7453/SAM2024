@@ -106,9 +106,10 @@ public class Root {
 
   }
 
-  public void addUser(String username, String password, String name, EnumSet<UserRole> possibleRoles) {
+  public UUID addUser(String username, String password, String name, EnumSet<UserRole> possibleRoles) {
     User user = new User(username, password,name, possibleRoles);
     users.add(user);
+    return user.getUserID();
   }
 
   public void deleteUser(UUID userID) {

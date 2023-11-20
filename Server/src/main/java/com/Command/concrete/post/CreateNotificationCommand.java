@@ -19,6 +19,14 @@ import java.util.UUID;
  * Return : true if it works, false if it errors
  */
 
+
+/**
+ *
+ * NOT IMPLEMENTING RIGHT NOW
+ *
+ */
+
+
 public class CreateNotificationCommand extends Command{
 
     @Override
@@ -29,6 +37,7 @@ public class CreateNotificationCommand extends Command{
          * elements = submissionID : UUID, alert : String, deadline : String{"dd-MM-yyyy"}
          * addNotification
          */
+
         return null;
     }
 

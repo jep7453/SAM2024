@@ -32,9 +32,8 @@ public class ReviewPaperCommand extends Command{
          * elements = submissionID : UUID, reviewScore : int, body : String
          * reviewPaper
          */
-        UUID submissionID = UUID.fromString((String) elements[0]);
-        actor.reviewPaper(submissionID, (int) elements[1], (String) elements[2]);
-        return "User " + actor.getName() + " reviewed paper " + submissionID;
+        actor.reviewPaper(subjectID, (int) elements[0], (String) elements[1]);
+        return "User " + actor.getName() + " reviewed paper " + subjectID;
     }
 
     @Override

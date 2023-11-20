@@ -67,7 +67,7 @@ public class Rating {
   }
 
   public Object getSubject(UUID id) {
-    if (this.ratingID == id) {
+    if (this.ratingID.equals(id)) {
       return this;
     }
     return null;

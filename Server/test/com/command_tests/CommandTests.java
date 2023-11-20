@@ -19,17 +19,41 @@ public class CommandTests {
 
     Root root;
 
+    UUID adminID;
+    UUID pcmID;
+    UUID pccID;
+    UUID submitterID;
+
     @BeforeEach
     public void setUp() {
         root = Root.getInstance();
         String[] args = new String[0];
         root.main(args);
+        adminID = UUID.fromString("321e4567-e89b-12d3-a456-426614174001");
+        pccID = UUID.fromString("123e4567-e89b-12d3-a456-426614174001");
+
+        CreateUserCommand createUserCommand = new CreateUserCommand();
+        String pcm = createUserCommand.execute(adminID,null,
+                "pcm_test","test_password","PCM Guy", "PCM");
+        pcmID = UUID.fromString(pcm);
+
+        String submitter = createUserCommand.execute(adminID,null,
+                "submitter_test","test_password","Submitter Guy", "Submitter");
+
+        submitterID = UUID.fromString(submitter);
+
+
     }
 
 
 
     @Test
     public void testViewPaperCommandExecute() {
+        System.out.println("PCM ID: " + pcmID);
+        System.out.println("Submitter ID: " + submitterID);
+        System.out.println("PCC ID: " + pccID);
+        System.out.println("Admin ID: " + adminID);
+
         ViewPaperCommand viewPaperCommand = new ViewPaperCommand();
         String string = viewPaperCommand.execute(UUID.fromString("123e4567-e89b-12d3-a456-426614174001"),
                 UUID.fromString("3bf605b2-46e4-4879-8f8e-8e2c77e46d2a"));

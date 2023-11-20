@@ -77,7 +77,7 @@ public class Review {
   }
 
   public Object getSubject(UUID id) {
-    if (this.reviewID == id) {
+    if (this.reviewID.equals(id)) {
       return this;
     }
     return null;

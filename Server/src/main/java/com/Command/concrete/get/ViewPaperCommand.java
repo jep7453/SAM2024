@@ -38,7 +38,7 @@ public class ViewPaperCommand extends Command{
 
     @Override
     public boolean checkPermissions(User actor) {
-        EnumSet<UserRole> validRoles = EnumSet.of(UserRole.SUBMITTER, UserRole.PCM, UserRole.PCC);
+        EnumSet<UserRole> validRoles = EnumSet.of(UserRole.SUBMITTER, UserRole.PCM, UserRole.PCC, UserRole.ADMIN);
         return validRoles.contains(actor.getCurrentRole());
     }
     

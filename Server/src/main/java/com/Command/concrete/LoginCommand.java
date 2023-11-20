@@ -19,13 +19,14 @@ public class LoginCommand extends Command {
 
     @Override
     public String execute(UUID userID, UUID subjectID, Object... elements) {
-        // User actor = getActor(userID);
+        //User actor = getActor(userID);
         // User subject = getSubject(subjectID);
         /**
          * elements = userName : UUID, password : UUID, currentRole : String
          * login
          */
-        return null;
+        UUID login = root.login((String)elements[0], (String)elements[1], (String)elements[2]);
+        return login.toString();
     }
 
     @Override

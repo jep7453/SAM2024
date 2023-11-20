@@ -23,13 +23,17 @@ public class DeleteUserCommand extends Command {
     public String execute(UUID userID, UUID subjectID, Object... elements) {
         User actor = getActor(userID);
         User subject = getSubject(subjectID);
+        if (!checkPermissions(actor)) {
+            return "Actor current role not able to run command";
+        }
         /**
          * elements = userName : String, password : "password", possibleRoles :  <String>
          * addUser
          * elements = userID
          * deleteUser
          */
-        return null;
+        root.deleteUser(subjectID);
+        return root.getUsers().toString();
     }
 
     @Override
