@@ -12,7 +12,7 @@ package Views;
 
 import java.util.Scanner;
 
-public class PCMView implements BaseViews {
+public class PCMView extends BaseView {
 
     /**
      * Scanner object for user input.
@@ -32,46 +32,11 @@ public class PCMView implements BaseViews {
     /**
      * {@inheritDoc}
      */
-    @Override
-    public void login(String id, String password) {
-        // Implementation intentionally left blank for PCM login
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public void home() {
         System.out.println("1. Select paper to review\n" +
                 "2. View my assigned paper\n" +
                 "3. Review assigned paper\n" +
                 "4. Logout");
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void siteHome() {
-        System.out.println("Enter 1 to login");
-        int answer = sc.nextInt();
-        String userName = null;
-        String password = null;
-        if (answer == 1) {
-            System.out.println("Enter username");
-            userName = sc.nextLine();
-            System.out.println("Enter Password");
-            password = sc.nextLine();
-        }
-        login(userName, password);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void logout() {
-        siteHome();
     }
 
     /**

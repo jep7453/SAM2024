@@ -12,7 +12,7 @@ package Views;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class AuthorView implements BaseViews {
+public class AuthorView  extends BaseView {
 
     /**
      * Scanner object for user input.
@@ -52,49 +52,12 @@ public class AuthorView implements BaseViews {
     /**
      * {@inheritDoc}
      */
-    @Override
-    public void login(String id, String password) {
-        if (Objects.equals(this.id, id) && Objects.equals(this.password, password)) {
-            System.out.println("Login Successful as an Author!");
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public void home() {
         System.out.println("1. Submit Paper\n" +
                 "2. View Paper\n" +
                 "3. View Report\n" +
                 "4. Logout");
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void siteHome() {
-        System.out.println("Enter 1 to login");
-        int answer = sc.nextInt();
-        String userName = null;
-        String password = null;
-        if (answer == 1) {
-            System.out.println("Enter username");
-            userName = sc.nextLine();
-            System.out.println("Enter Password");
-            password = sc.nextLine();
-        }
-        login(userName, password);
-    }
-
-    /**
-     * Logs out of the system and returns to the site's home screen.
-     */
-    public void logout() {
-        siteHome();
-    }
-
     /**
      * Allows the author to submit a paper to the system.
      */

@@ -12,7 +12,7 @@ package Views;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class PCCView implements BaseViews {
+public class PCCView extends BaseView {
 
     /**
      * Scanner object for user input.
@@ -29,43 +29,11 @@ public class PCCView implements BaseViews {
      */
     String password;
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void login(String id, String password) {
-        if (Objects.equals(this.id, id) && Objects.equals(this.password, password)) {
-            System.out.println("Login Successful as a Program Committee Chair!");
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public void home() {
         System.out.println("1. Assign Paper\n" +
                 "2. Generate Report\n" +
                 "3. Rate Paper\n" +
                 "4. Logout");
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void siteHome() {
-        System.out.println("Enter 1 to login");
-        int answer = sc.nextInt();
-        String userName = null;
-        String password = null;
-        if (answer == 1) {
-            System.out.println("Enter username");
-            userName = sc.nextLine();
-            System.out.println("Enter Password");
-            password = sc.nextLine();
-        }
-        login(userName, password);
     }
 
     /**
@@ -109,12 +77,5 @@ public class PCCView implements BaseViews {
         double paperRating;
         paperRating = ratingByPCC(paperId);
         return paperRating;
-    }
-
-    /**
-     * Logs out of the system and returns to the site's home screen.
-     */
-    public void logout() {
-        siteHome();
     }
 }
