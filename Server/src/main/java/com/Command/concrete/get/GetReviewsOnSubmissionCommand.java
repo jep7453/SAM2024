@@ -27,7 +27,13 @@ public class GetReviewsOnSubmissionCommand extends Command{
             return "Actor current role not able to run command";
         }
         Submission subject = getSubject(subjectID);
-        return subject.getReviews().toString();
+        List<Review> reviews = subject.getReviews();
+        List<String> reviewIDs = new ArrayList<>();
+
+        for (Review review : reviews) {
+            reviewIDs.add(review.getReviewID().toString());
+        }
+        return reviewIDs;
     }
 
     @Override

@@ -32,7 +32,13 @@ public class GetSubmissionsByUserCommand extends Command{
             return "Actor current role not able to run command";
         }
         User subject = getSubject(subjectID);
-        return subject.getSubmissions().toString();
+        List<Rating> ratings = subject.getReviews();
+        List<String> ratingIDs = new ArrayList<>();
+
+        for (Rating rating : ratings) {
+            ratings.add(rating.getRatingID().toString());
+        }
+        return ratingIDs;
     }
 
     @Override

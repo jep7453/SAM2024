@@ -28,9 +28,9 @@ public class GetAssignedReviewsRatingsCommand extends Command{
         }
         User subject = getSubject(subjectID);
         if (subject.getCurrentRole() == UserRole.PCM) {
-            return subject.getAssignedReviews().toString();
+            return subject.getAssignedReviews().getReviewID().toString();
         } else if (subject.getCurrentRole() == UserRole.PCC) {
-            return subject.getAssignedRatings().toString();
+            return subject.getAssignedRatings().getRatingID().toString();
         }
         return "Actor current role not able to run command";
     }
