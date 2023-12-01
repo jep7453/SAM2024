@@ -27,7 +27,7 @@ public class GetPreviousSubmissionsCommand extends Command{
             return "Actor current role not able to run command";
         }
         Submission subject = getSubject(subjectID);
-        return subject.viewPreviousPaper();
+        return subject.getPreviousPaper().getSubmissionID().toString();
     }
 
     @Override

@@ -30,7 +30,13 @@ public class GetUsersByRoleCommand extends Command{
             return "Actor current role not able to run command";
         }
         UserRole searchRole = UserRole.valueOf((String) elements[0]);
-        return root.getUsersByRole(searchRole).toString();
+        List<User> users = root.getUsersByRole(searchRole);
+        List<String> userIDs = new ArrayList<>();
+
+        for (User user : users) {
+            userIDs.add(user.getUserID().toString());
+        }
+        return userIDs;
     }
 
     @Override

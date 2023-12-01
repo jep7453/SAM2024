@@ -147,8 +147,8 @@ public class Submission{
     return paper;
   }
 
-  public String viewPreviousPaper() {
-    return previousSubmission.viewPaper();
+  public String getPreviousPaper() {
+    return previousSubmission;
   }
 
   public String viewPaperMetaData() {
