@@ -28,12 +28,12 @@ public class AssignPaperToPCMCommand extends Command{
     @Override
     public String execute(UUID userID, UUID subjectID, Object... elements) {
         User actor = getActor(userID);
-        if (checkPermissions(actor) == false) {
+        if (!checkPermissions(actor)) {
             return "Invalid Permissions";
         }
         User subject = getSubject(subjectID);
         subject.assignPaperToPCM(UUID.fromString((String) elements[0]));
-        return "Paper" + elements[0] + "assigned to PCM" + subjectID + "for review";
+        return "Paper " + elements[0] + " assigned to PCM " + subjectID + " for review";
     }
 
     @Override

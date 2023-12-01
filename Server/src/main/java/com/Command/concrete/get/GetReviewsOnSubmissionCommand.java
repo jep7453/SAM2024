@@ -1,10 +1,13 @@
 package com.command.concrete.get;
 
+import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.UUID;
 
 import com.UserRole;
 import com.command.Command;
+import com.model.Review;
 import com.model.Submission;
 import com.model.User;
 
@@ -33,7 +36,7 @@ public class GetReviewsOnSubmissionCommand extends Command{
         for (Review review : reviews) {
             reviewIDs.add(review.getReviewID().toString());
         }
-        return reviewIDs;
+        return reviewIDs.toString();
     }
 
     @Override

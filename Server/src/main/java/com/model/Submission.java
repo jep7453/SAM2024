@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Submission{
   private UUID submissionID;
@@ -147,7 +145,7 @@ public class Submission{
     return paper;
   }
 
-  public String getPreviousPaper() {
+  public Submission getPreviousPaper() {
     return previousSubmission;
   }
 

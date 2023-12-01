@@ -2,11 +2,14 @@ package com.command.concrete.get;
 
 import com.UserRole;
 import com.command.Command;
+import com.model.Rating;
 import com.model.Review;
 import com.model.Submission;
 import com.model.User;
 
+import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -32,13 +35,12 @@ public class GetSubmissionsByUserCommand extends Command{
             return "Actor current role not able to run command";
         }
         User subject = getSubject(subjectID);
-        List<Rating> ratings = subject.getReviews();
-        List<String> ratingIDs = new ArrayList<>();
-
-        for (Rating rating : ratings) {
-            ratings.add(rating.getRatingID().toString());
+        List<Submission> submissions = subject.getSubmissions();
+        List<String> submissionIDs = new ArrayList<>();
+        for (Submission submission : submissions) {
+            submissionIDs.add(submission.getSubmissionID().toString());
         }
-        return ratingIDs;
+        return submissionIDs.toString();
     }
 
     @Override

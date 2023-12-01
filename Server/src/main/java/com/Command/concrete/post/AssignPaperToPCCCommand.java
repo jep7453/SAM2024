@@ -33,7 +33,7 @@ public class AssignPaperToPCCCommand extends Command{
         }
         User subject = getSubject(subjectID);
         subject.assignPaperToPCC(UUID.fromString((String) elements[0]));
-        return "Paper" + elements[0] + "assigned to PCC" + subjectID + "for rating";
+        return "Paper " + elements[0] + " assigned to PCC " + subjectID + " for rating";
     }
 
     @Override

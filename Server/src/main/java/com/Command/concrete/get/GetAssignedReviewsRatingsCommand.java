@@ -23,14 +23,16 @@ public class GetAssignedReviewsRatingsCommand extends Command{
     @Override
     public String execute(UUID userID, UUID subjectID, Object... elements) {
         User actor = getActor(userID);
+        System.out.println(actor);
         if (!checkPermissions(actor)) {
             return "Actor current role not able to run command";
         }
         User subject = getSubject(subjectID);
+        System.out.println(subject);
         if (subject.getCurrentRole() == UserRole.PCM) {
-            return subject.getAssignedReviews().getReviewID().toString();
+            return subject.getAssignedReviews().toString();
         } else if (subject.getCurrentRole() == UserRole.PCC) {
-            return subject.getAssignedRatings().getRatingID().toString();
+            return subject.getAssignedRatings().toString();
         }
         return "Actor current role not able to run command";
     }
@@ -43,6 +45,7 @@ public class GetAssignedReviewsRatingsCommand extends Command{
     @Override
     public boolean checkPermissions(User actor) {
         EnumSet<UserRole> validRoles = EnumSet.of(UserRole.PCM, UserRole.PCC);
+        System.out.println(actor.getCurrentRole());
         return validRoles.contains(actor.getCurrentRole());
     }
     

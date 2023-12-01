@@ -117,9 +117,6 @@ public class User{
    */
   public boolean submitPaper(String title, List<String> authors, Path filePath) throws ParseException {
     Submission submission;
-    if (this.currentRole == UserRole.SUBMITTER) {
-      return false;
-    }
     submission = new Submission(title, authors,filePath, 1, null);
     submissions.add(submission);
 
@@ -145,9 +142,6 @@ public class User{
    */
   public boolean updatePaper(String title, List<String> authors, Path filePath, UUID submissionID) throws ParseException {
     Submission submission;
-    if (this.currentRole != UserRole.SUBMITTER) {
-      return false;
-    }
     if (getSubject(submissionID) != null) {
       return false;
     }
@@ -230,13 +224,20 @@ public class User{
 
   }
 
-  public List<Rating> getAssignedRatings() {
-    List<Rating> ratings = new ArrayList<>();
-    for (UUID ratingID : assignedRatings.values()) {
-      ratings.add((Rating) Root.getInstance().getSubject(ratingID));
+  public Map<UUID, String> getAssignedRatings() {
+    Root root = Root.getInstance();
+    Map<UUID, String> ratings = new HashMap<>();
+    for (Map.Entry<UUID, UUID> assignedRating : assignedRatings.entrySet()) {
+      Rating rating = (Rating) root.getSubject(assignedRating.getValue());
+      if (rating != null) {
+        ratings.put(assignedRating.getKey(), rating.getRatingID().toString());
+      } else {
+        assignedReviews.remove(assignedRating.getKey());
+      }
     }
     return ratings;
   }
+
 
   public List<Submission> getSubmissions() {
     return submissions;
@@ -315,12 +316,17 @@ public class User{
    * @return True if request is successful, false otherwise.
    */
   public boolean requestReview(UUID submissionID) {
-    Submission submission = (Submission) getSubject(submissionID);
+    Root root = Root.getInstance();
+    Submission submission = (Submission) root.getSubject(submissionID);
     if (submission == null) {
       return false;
     }
     requestedSubmissions.add(submission.getSubmissionID());
     return true;
+  }
+
+  public List<UUID> getRequestedSubmissions() {
+    return requestedSubmissions;
   }
 
   /**

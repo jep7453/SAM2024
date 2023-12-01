@@ -1,6 +1,8 @@
 package com.command.concrete.get;
 
+import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.UUID;
 
 import com.UserRole;
@@ -36,7 +38,7 @@ public class GetUsersByRoleCommand extends Command{
         for (User user : users) {
             userIDs.add(user.getUserID().toString());
         }
-        return userIDs;
+        return userIDs.toString();
     }
 
     @Override
