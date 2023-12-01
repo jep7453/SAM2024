@@ -9,6 +9,23 @@ public class SubmitterUi extends View {
                 "2.View Paper\n" +
                 "3.View Report\n" +
                 "4.Logout");
+        int input = sc.nextInt();
+        switch(input){
+            case 1:
+                submitPaper();
+                break;
+            case 2:
+                viewPaper();
+                break;
+            case 3:
+                viewReport();
+                break;
+            case 4:
+                logout();
+                break;
+            default:
+                System.out.println("Invalid Input");
+        }
     }
 
     public void submitPaper(){
@@ -40,26 +57,4 @@ public class SubmitterUi extends View {
     public void logout(){
         home();
     }
-
-    public static void main(String[] args) {
-        home();
-        int input = sc.nextInt();
-        switch(input){
-            case 1:
-                submitPaper();
-                break;
-            case 2:
-                viewPaper();
-                break;
-            case 3:
-                viewReport();
-                break;
-            case 4:
-                logout();
-                break;
-            default:
-                System.out.println("Invalid Input");
-        }
-    }
-
 }
