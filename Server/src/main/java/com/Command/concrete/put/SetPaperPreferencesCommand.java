@@ -31,8 +31,10 @@ public class SetPaperPreferencesCommand extends Command{
          * elements = submissionID : UUID
          * requestReview
          */
-        actor.requestReview(subjectID);
-        return "User " + actor.getName() + " requested to review paper " + subjectID;
+        if (actor.requestReview(subjectID)) {
+            return "User " + actor.getName() + " requested to review paper " + subjectID;
+        }
+        return "User " + actor.getName() + " failed to request to review paper " + subjectID;
     }
 
     @Override
