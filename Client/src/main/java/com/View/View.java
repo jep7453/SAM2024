@@ -150,6 +150,10 @@ public class View {
         }
     }
     public void assignPaper(){
+        System.out.println("Enter the name of the PCC: ");
+        String pccName = sc.nextLine();
+        /* we can use the hashset used for the preferences that the pcm gave, run a for loop and for the paper we want to assign
+        we will have to check that the pcc is not the submitter */
         /* I am trying to think how we can implement the functionality where we can keep a track of alloting a paper to just 3 PCMs */
     }
 
