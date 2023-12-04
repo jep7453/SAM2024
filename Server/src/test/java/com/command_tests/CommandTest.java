@@ -14,6 +14,9 @@ import org.junit.jupiter.api.BeforeEach;
 
 import org.junit.jupiter.api.Test;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 import java.util.UUID;
 
@@ -30,6 +33,7 @@ public class CommandTest {
 
     @BeforeAll
     public static void setUp() {
+
         Root root = Root.getInstance();
         adminID = UUID.fromString("321e4567-e89b-12d3-a456-426614174001");
         pccID = UUID.fromString("123e4567-e89b-12d3-a456-426614174001");
@@ -47,7 +51,12 @@ public class CommandTest {
 
     }
 
-
+    public String prettyJson(String json) throws JsonProcessingException{
+        ObjectMapper objectMapper = new ObjectMapper();
+        Object jsonObject = objectMapper.readValue(json, Object.class);
+        String prettyJson = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObject);
+        return prettyJson;
+    }
 
     @Test
     public void testViewPaperCommandExecute() {

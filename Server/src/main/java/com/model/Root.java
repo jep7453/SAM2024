@@ -22,7 +22,8 @@ import java.util.UUID;
  */
 public class Root {
   private List<User> users;
-  private String filePath = "C:\\Users\\happy\\IdeaProjects\\SAM2024\\server\\src\\main\\resources\\SAM2024.json";
+  // private String filePath = "C:\\Users\\happy\\IdeaProjects\\SAM2024\\server\\src\\main\\resources\\SAM2024.json";
+  private String filePath = "src/main/resources/SAM2024.json";
 
   public static void main(String[] args) {
     Root s = Root.getInstance();
