@@ -1,4 +1,4 @@
-package command_tests;
+package com.command_tests;
 
 import com.UserRole;
 import com.command.concrete.*;
