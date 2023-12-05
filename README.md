@@ -31,5 +31,6 @@ Ensure you have the latest version of Maven and Java 17 or more recent installed
 ## Running the project
 
 1. Navigate to the project directory
-2. Run `mvn clean install`
-3. Run the tests with `mvn test`
+2. Navigate to the `server` directory `cd server`
+3. Run `mvn clean install`
+4. Run the tests with `mvn test`
